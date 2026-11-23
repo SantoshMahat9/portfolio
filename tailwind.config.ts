@@ -10,45 +10,48 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          orange: "#FF4D1C",
-          "orange-deep": "#E93616",
-          "orange-dark": "#C0250A",
-          yellow: "#FFC247",
-          dark: "#171717",
-          "dark-subtle": "#111111",
-          surface: "#222222",
-          "surface-muted": "#1C1C1C",
-          muted: "#A3A3A3",
-          secondary: "#D6D6D6",
+        heist: {
+          black: "#090909",
+          dark: "#141414",
+          surface: "#1C1C1C",
+          surfaceElevated: "#222222",
+          red: "#E50914",
+          "red-dark": "#720D12",
+          "red-glow": "rgba(229, 9, 20, 0.45)",
+          border: "#292929",
+          "border-light": "#383838",
+          text: "#F5F5F5",
+          muted: "#999999",
+          dim: "#555555",
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        display: ["var(--font-display)", "Impact", "Arial Black", "sans-serif"],
+        bebas: ["var(--font-bebas)", "Bebas Neue", "Impact", "sans-serif"],
+        sans: ["var(--font-sans)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        technical: ["var(--font-technical)", "Space Grotesk", "monospace"],
       },
       backgroundImage: {
-        "hero-gradient": "radial-gradient(ellipse at 50% 40%, rgba(255, 77, 28, 0.45) 0%, rgba(233, 54, 22, 0.25) 35%, rgba(23, 23, 23, 0.95) 75%, #171717 100%)",
-        "radial-highlight": "radial-gradient(circle at center, rgba(255, 194, 71, 0.2) 0%, rgba(255, 77, 28, 0.1) 40%, transparent 70%)",
+        "heist-radial": "radial-gradient(circle at 75% 35%, rgba(229, 9, 20, 0.22) 0%, rgba(114, 13, 18, 0.12) 40%, transparent 70%)",
+        "spotlight-cone": "radial-gradient(ellipse at 50% 0%, rgba(229, 9, 20, 0.35) 0%, rgba(9, 9, 9, 0.95) 70%)",
       },
       animation: {
-        "float-slow": "float 8s ease-in-out infinite",
-        "float-medium": "float 5s ease-in-out infinite",
-        "pulse-subtle": "pulseSubtle 4s ease-in-out infinite",
-        "marquee": "marquee 25s linear infinite",
+        "pulse-slow": "pulseSlow 4s ease-in-out infinite",
+        "scanline": "scanline 8s linear infinite",
+        "red-flicker": "redFlicker 3s infinite",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-          "50%": { transform: "translateY(-14px) rotate(3deg)" },
-        },
-        pulseSubtle: {
+        pulseSlow: {
           "0%, 100%": { opacity: "1", transform: "scale(1)" },
           "50%": { opacity: "0.85", transform: "scale(1.02)" },
         },
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
+        scanline: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        redFlicker: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.75" },
+          "70%": { opacity: "0.95" },
         },
       },
     },

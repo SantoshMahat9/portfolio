@@ -1,60 +1,52 @@
-import { SkillCategory } from "@/types";
+export interface SkillCategory {
+  category: string;
+  tag: string;
+  skills: {
+    name: string;
+    description: string;
+    verified: boolean;
+  }[];
+}
 
 export const skillCategories: SkillCategory[] = [
   {
-    category: "Frontend Development",
+    category: "Frontend Architecture",
+    tag: "CLIENT_SIDE",
     skills: [
-      { name: "JavaScript", levelDescription: "Modern ES6+, Async/Await, DOM" },
-      { name: "HTML5", levelDescription: "Semantic Markup, Accessibility, SEO" },
-      { name: "CSS3 / Tailwind", levelDescription: "Responsive Layouts, Flexbox, Grid, Motion" },
-      { name: "Angular", levelDescription: "Component Architecture, Services, Directives" },
+      { name: "JavaScript", description: "Modern ES6+, Async/Await, DOM manipulation", verified: true },
+      { name: "React", description: "Component state, hooks, reactive UI flows", verified: true },
+      { name: "HTML5", description: "Semantic document structure, web accessibility", verified: true },
+      { name: "CSS3 / Tailwind", description: "Responsive layouts, Flexbox, Grid, keyframes", verified: true },
+      { name: "Responsive Web Design", description: "Fluid breakpoints, mobile-first architectures", verified: true },
+      { name: "Angular", description: "Enterprise services, component hierarchy", verified: true },
     ],
   },
   {
-    category: "Backend Development",
+    category: "Backend Engineering",
+    tag: "SERVER_SIDE",
     skills: [
-      { name: ".NET", levelDescription: "C#, Controllers, Middleware, Backend Logic" },
-      { name: "Node.js", levelDescription: "Express, RESTful Services, Asynchronous Event Loops" },
+      { name: "Node.js", description: "Asynchronous runtime, event loop, API services", verified: true },
+      { name: "Express.js", description: "RESTful routing, middleware pipelines, error handlers", verified: true },
+      { name: ".NET", description: "C# backend controllers, service logic at Kantascrypt", verified: true },
     ],
   },
   {
-    category: "Databases & Storage",
+    category: "Database Systems",
+    tag: "DATA_PERSISTENCE",
     skills: [
-      { name: "SQL", levelDescription: "Relational Modeling, Query Optimization, Joins" },
-      { name: "MySQL", levelDescription: "Schema Design, Relational Constraints, Indexing" },
-      { name: "MongoDB", levelDescription: "Document Stores, Aggregations, NoSQL Integration" },
+      { name: "SQL", description: "Relational queries, ACID schemas, joins, normalization", verified: true },
+      { name: "MySQL", description: "Relational constraints, indexing, data modeling", verified: true },
+      { name: "MongoDB", description: "NoSQL document stores, flexible collections", verified: true },
     ],
   },
   {
-    category: "Programming Languages",
+    category: "Development Tools & Environment",
+    tag: "ARSENAL_OPS",
     skills: [
-      { name: "Python", levelDescription: "API Automation, Scripting, Logic Flow" },
-      { name: "C++", levelDescription: "Object-Oriented Programming, Data Structures" },
-      { name: "C", levelDescription: "Procedural Logic, Memory Management Foundations" },
-    ],
-  },
-  {
-    category: "Developer Tools & Version Control",
-    skills: [
-      { name: "Git", levelDescription: "Branching, Rebasing, Conflict Resolution" },
-      { name: "GitHub", levelDescription: "Pull Requests, Code Reviews, Remote Collaboration" },
-    ],
-  },
-  {
-    category: "Engineering Concepts",
-    skills: [
-      { name: "REST APIs", levelDescription: "Resource URI Design, HTTP Verbs, Webhooks" },
-      { name: "Debugging", levelDescription: "Root Cause Analysis, DevTools, Console Tracing" },
-      { name: "Code Review", levelDescription: "Static Analysis, Best Practices, Clean Code" },
-      { name: "Team Collaboration", levelDescription: "Peer Pair-Programming, Shared Repositories" },
-    ],
-  },
-  {
-    category: "Methodologies",
-    skills: [
-      { name: "Agile", levelDescription: "Iterative Sprints, Continuous Feedback" },
-      { name: "Scrum", levelDescription: "Standups, Backlog Prioritization, Retrospectives" },
-      { name: "Iterative Development", levelDescription: "Incremental Feature Rollouts, Modular Testing" },
+      { name: "Git", description: "Version control, branching, merge conflict resolution", verified: true },
+      { name: "GitHub", description: "Pull requests, code reviews, collaborative repos", verified: true },
+      { name: "VS Code", description: "Primary IDE workflow, debugging, extensions", verified: true },
+      { name: "Figma", description: "UI wireframing, component tokens, layout inspection", verified: true },
     ],
   },
 ];

@@ -4,26 +4,26 @@ import React from "react";
 import { motion } from "framer-motion";
 import { experienceData } from "@/data/experience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Briefcase, Calendar, MapPin, CheckCircle, Clock, Sparkles } from "lucide-react";
+import { Briefcase, Calendar, MapPin, CheckCircle, Clock, ShieldCheck } from "lucide-react";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32 bg-[#141414] overflow-hidden">
-      {/* Ambient background light */}
-      <div className="absolute top-1/3 -right-48 w-96 h-96 rounded-full bg-brand-orange-deep/10 blur-[130px] pointer-events-none" />
+    <section id="experience" className="relative py-28 sm:py-36 bg-[#0B0B0B] film-grain overflow-hidden border-t border-heist-border">
+      {/* Background ambient spotlight */}
+      <div className="absolute top-1/2 -left-48 w-[400px] h-[400px] rounded-full bg-heist-red/10 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          tag="02 // CAREER TIMELINE"
-          title="PROFESSIONAL"
-          highlight="EXPERIENCE."
-          subtitle="Real-world engineering internships, upcoming roles, and hands-on contributions to collaborative software projects."
+          tag="CAREER LOG // 04"
+          title="THE MISSIONS"
+          highlight="THAT BUILT ME."
+          subtitle="Real-world engineering internships, upcoming enterprise roles, and collaborative agile software production."
         />
 
         {/* Timeline Stream */}
         <div className="relative mt-12 max-w-4xl mx-auto space-y-12">
-          {/* Vertical Timeline Guide Line */}
-          <div className="absolute left-8 top-4 bottom-4 w-[2px] bg-gradient-to-b from-brand-orange via-brand-yellow to-white/10 hidden sm:block" />
+          {/* Vertical Crimson Timeline Guide Line */}
+          <div className="absolute left-4 sm:left-8 top-6 bottom-6 w-[2px] bg-gradient-to-b from-heist-red via-heist-red-dark to-heist-border hidden sm:block" />
 
           {experienceData.map((exp, index) => {
             const isUpcoming = exp.isUpcoming;
@@ -37,93 +37,90 @@ export function ExperienceSection() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="relative pl-0 sm:pl-20"
               >
-                {/* Timeline Node Icon */}
-                <div className="hidden sm:flex absolute left-8 -translate-x-1/2 top-6 w-8 h-8 rounded-full items-center justify-center bg-brand-dark border-2 border-brand-orange shadow-lg shadow-brand-orange/30 z-10">
+                {/* Timeline Red Node Icon */}
+                <div className="hidden sm:flex absolute left-8 -translate-x-1/2 top-6 w-8 h-8 rounded-full items-center justify-center bg-heist-black border-2 border-heist-red shadow-lg shadow-heist-red/30 z-10">
                   {isUpcoming ? (
-                    <Clock className="w-4 h-4 text-brand-yellow animate-spin" style={{ animationDuration: "8s" }} />
+                    <Clock className="w-4 h-4 text-heist-red animate-spin" style={{ animationDuration: "8s" }} />
                   ) : (
-                    <Briefcase className="w-4 h-4 text-brand-orange" />
+                    <Briefcase className="w-4 h-4 text-heist-red" />
                   )}
                 </div>
 
-                {/* Experience Card */}
+                {/* Experience Mission Card */}
                 <div
-                  className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 relative overflow-hidden shadow-xl ${
+                  className={`p-6 sm:p-8 rounded-2xl border transition-all duration-300 relative overflow-hidden shadow-2xl ${
                     isUpcoming
-                      ? "bg-gradient-to-br from-[#1C1815] to-brand-surface border-brand-yellow/40 hover:border-brand-yellow"
-                      : "bg-brand-surface/70 border-white/10 hover:border-brand-orange/40"
+                      ? "bg-gradient-to-br from-[#161011] to-heist-dark border-heist-red/40 hover:border-heist-red"
+                      : "bg-heist-dark border-heist-border hover:border-heist-red/50"
                   }`}
                 >
                   {/* Status Badge */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <span
-                      className={`px-3.5 py-1 rounded-full text-xs font-mono-code font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+                      className={`px-3 py-1 rounded text-xs font-technical font-bold uppercase tracking-wider flex items-center gap-1.5 ${
                         isUpcoming
-                          ? "bg-brand-yellow/20 text-brand-yellow border border-brand-yellow/40"
-                          : "bg-brand-orange/20 text-brand-orange border border-brand-orange/40"
+                          ? "bg-heist-red/20 text-heist-red border border-heist-red/40"
+                          : "bg-white/5 text-white border border-white/10"
                       }`}
                     >
-                      {isUpcoming && <Sparkles className="w-3.5 h-3.5" />}
+                      <ShieldCheck className="w-3.5 h-3.5 text-heist-red" />
                       {exp.statusBadge}
                     </span>
 
-                    <div className="flex items-center gap-4 text-xs font-mono-code text-brand-muted">
-                      <span className="flex items-center gap-1.5 text-white/80">
-                        <Calendar className="w-3.5 h-3.5 text-brand-orange" />
-                        {exp.period}
+                    <div className="flex items-center gap-4 text-xs font-technical text-heist-muted">
+                      <span className="flex items-center gap-1.5 text-heist-text">
+                        <Calendar className="w-3.5 h-3.5 text-heist-red" />
+                        {exp.duration}
                       </span>
-                      <span className="flex items-center gap-1.5 text-white/80">
-                        <MapPin className="w-3.5 h-3.5 text-brand-yellow" />
+                      <span className="flex items-center gap-1.5 text-heist-muted">
+                        <MapPin className="w-3.5 h-3.5 text-heist-red" />
                         {exp.mode}
                       </span>
                     </div>
                   </div>
 
-                  {/* Header */}
+                  {/* Role & Company Header */}
                   <div className="space-y-1">
-                    <h3 className="font-syne text-2xl sm:text-3xl font-bold text-white">
+                    <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide">
                       {exp.role}
                     </h3>
-                    <p className="text-base sm:text-lg font-semibold text-brand-orange">
+                    <p className="text-base font-technical font-semibold text-heist-red">
                       {exp.company}
                     </p>
                   </div>
 
-                  {/* Highlight callout if present */}
-                  {exp.highlight && (
-                    <div className="mt-4 p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs text-brand-secondary font-mono-code flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-brand-yellow shrink-0" />
-                      <span>{exp.highlight}</span>
-                    </div>
-                  )}
+                  {/* Scope Callout */}
+                  <div className="mt-4 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-heist-muted font-sans-body leading-relaxed">
+                    {exp.scopeSummary}
+                  </div>
 
                   {/* Responsibilities list */}
                   <div className="mt-6 space-y-2.5">
-                    <p className="text-xs font-mono-code text-brand-yellow uppercase tracking-wider font-semibold">
-                      Key Highlights &amp; Scope:
+                    <p className="text-xs font-technical text-white uppercase tracking-wider font-bold">
+                      Operational Deliverables:
                     </p>
                     <ul className="space-y-2">
                       {exp.responsibilities.map((resp, i) => (
                         <li
                           key={i}
-                          className="flex items-start gap-2.5 text-sm text-brand-secondary leading-relaxed"
+                          className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-300 font-sans-body leading-relaxed"
                         >
-                          <CheckCircle className="w-4 h-4 text-brand-orange mt-0.5 shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-heist-red mt-0.5 shrink-0" />
                           <span>{resp}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Tech stack tags */}
-                  <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap gap-2 items-center">
-                    <span className="text-xs font-mono-code text-brand-muted mr-1">
-                      Verified Tech:
+                  {/* Tech Stack Tags */}
+                  <div className="mt-6 pt-4 border-t border-heist-border flex flex-wrap gap-2 items-center">
+                    <span className="text-xs font-technical text-heist-muted mr-1">
+                      Verified Stack:
                     </span>
                     {exp.technologies.map((t) => (
                       <span
                         key={t}
-                        className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 text-xs font-mono-code text-white/90"
+                        className="px-2.5 py-1 rounded bg-black/60 border border-white/10 text-xs font-technical text-white"
                       >
                         {t}
                       </span>

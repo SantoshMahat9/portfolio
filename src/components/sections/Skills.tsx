@@ -4,40 +4,36 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { skillCategories } from "@/data/skills";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Terminal, Database, Cpu, Wrench, Layers, Workflow, CheckCircle2 } from "lucide-react";
+import { Layers, Terminal, Database, Wrench, ShieldCheck } from "lucide-react";
 
 export function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
 
   const categoryIcons: Record<string, React.ReactNode> = {
-    "Frontend Development": <Layers className="w-4 h-4 text-brand-orange" />,
-    "Backend Development": <Terminal className="w-4 h-4 text-brand-yellow" />,
-    "Databases & Storage": <Database className="w-4 h-4 text-brand-orange" />,
-    "Programming Languages": <Cpu className="w-4 h-4 text-brand-yellow" />,
-    "Developer Tools & Version Control": <Wrench className="w-4 h-4 text-brand-orange" />,
-    "Engineering Concepts": <Workflow className="w-4 h-4 text-brand-yellow" />,
-    "Methodologies": <CheckCircle2 className="w-4 h-4 text-brand-orange" />,
+    "Frontend Architecture": <Layers className="w-4 h-4 text-heist-red" />,
+    "Backend Engineering": <Terminal className="w-4 h-4 text-heist-red" />,
+    "Database Systems": <Database className="w-4 h-4 text-heist-red" />,
+    "Development Tools & Environment": <Wrench className="w-4 h-4 text-heist-red" />,
   };
 
   const categoriesList = ["ALL", ...skillCategories.map((c) => c.category)];
 
-  const displayedCategories =
+  const displayed =
     activeCategory === "ALL"
       ? skillCategories
       : skillCategories.filter((c) => c.category === activeCategory);
 
   return (
-    <section id="toolkit" className="relative py-24 sm:py-32 bg-[#121214] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 -left-40 w-96 h-96 rounded-full bg-brand-orange/10 blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-80 h-80 rounded-full bg-brand-yellow/10 blur-[120px] pointer-events-none" />
+    <section id="skills" className="relative py-28 sm:py-36 bg-[#0B0B0B] film-grain overflow-hidden border-t border-heist-border">
+      {/* Background ambient red aura */}
+      <div className="absolute top-1/3 right-0 w-[400px] h-[400px] rounded-full bg-heist-red/10 blur-[150px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
-          tag="04 // CAPABILITIES & EXPERTISE"
-          title="MY"
-          highlight="TOOLKIT."
-          subtitle="Curated languages, frameworks, databases, and engineering methodologies practiced in real-world application building."
+          tag="TACTICAL ARSENAL // 02"
+          title="THE TOOLS"
+          highlight="OF THE OPERATION."
+          subtitle="A verified technical inventory across frontend architecture, server-side logic, and structured database persistence."
         />
 
         {/* Category Filter Pills */}
@@ -46,63 +42,66 @@ export function SkillsSection() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono-code font-bold transition-all duration-300 ${
+              className={`px-4 py-2 rounded-lg text-xs font-technical font-semibold tracking-wider transition-all duration-300 border ${
                 activeCategory === cat
-                  ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/30 border border-brand-yellow/40"
-                  : "bg-brand-surface/70 text-brand-secondary hover:text-white hover:bg-white/10 border border-white/10"
+                  ? "bg-heist-red text-white border-heist-red shadow-lg shadow-heist-red/25"
+                  : "bg-heist-dark text-heist-muted hover:text-white hover:bg-heist-surface border-heist-border"
               }`}
             >
-              {cat}
+              {cat === "ALL" ? "ALL EQUIPMENT" : cat}
             </button>
           ))}
         </div>
 
-        {/* Categorized Editorial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedCategories.map((catGroup, idx) => (
+        {/* Arsenal Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {displayed.map((group, idx) => (
             <motion.div
-              key={catGroup.category}
-              initial={{ opacity: 0, y: 20 }}
+              key={group.category}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="p-6 rounded-3xl bg-brand-surface/50 border border-white/10 hover:border-brand-orange/40 transition-all duration-300 flex flex-col justify-between group"
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="p-6 rounded-2xl bg-heist-dark border border-heist-border hover:border-heist-red/50 transition-all duration-300 flex flex-col justify-between group shadow-xl"
             >
               <div>
-                <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-white/10">
-                  <div className="p-2 rounded-xl bg-white/5 group-hover:bg-brand-orange/15 transition-colors">
-                    {categoryIcons[catGroup.category] || <Terminal className="w-4 h-4 text-brand-orange" />}
+                <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-heist-border">
+                  <div className="p-2 rounded-md bg-white/5 group-hover:bg-heist-red/15 transition-colors">
+                    {categoryIcons[group.category] || <Terminal className="w-4 h-4 text-heist-red" />}
                   </div>
-                  <h3 className="font-syne text-lg font-bold text-white group-hover:text-brand-yellow transition-colors">
-                    {catGroup.category}
-                  </h3>
+                  <div>
+                    <span className="text-[10px] font-technical text-heist-red font-bold tracking-widest block">
+                      {group.tag}
+                    </span>
+                    <h3 className="font-bebas text-2xl text-white tracking-wide">
+                      {group.category}
+                    </h3>
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  {catGroup.skills.map((skill) => (
+                <div className="space-y-2.5">
+                  {group.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="p-3 rounded-2xl bg-black/30 border border-white/5 hover:border-white/15 transition-colors"
+                      className="p-3 rounded-xl bg-black/40 border border-white/5 hover:border-heist-border transition-colors"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono-code text-sm font-semibold text-white">
+                        <span className="font-technical text-xs font-bold text-white tracking-wide">
                           {skill.name}
                         </span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                        <ShieldCheck className="w-3.5 h-3.5 text-heist-red" />
                       </div>
-                      {skill.levelDescription && (
-                        <p className="text-xs text-brand-muted mt-1 leading-snug">
-                          {skill.levelDescription}
-                        </p>
-                      )}
+                      <p className="text-[11px] text-heist-muted font-sans-body mt-1 leading-snug">
+                        {skill.description}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono-code text-brand-muted">
-                <span>{catGroup.skills.length} Capabilities</span>
-                <span className="text-brand-orange">Verified</span>
+              <div className="mt-5 pt-3 border-t border-heist-border flex items-center justify-between text-[10px] font-technical text-heist-muted">
+                <span>{group.skills.length} VERIFIED ASSETS</span>
+                <span className="text-heist-red font-bold">READY</span>
               </div>
             </motion.div>
           ))}

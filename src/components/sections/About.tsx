@@ -3,85 +3,97 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { profileData } from "@/data/profile";
-import { educationData } from "@/data/education";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GraduationCap, Code, Compass, Terminal, CheckCircle2, MapPin } from "lucide-react";
+import { GraduationCap, Terminal, Code, Cpu, ShieldCheck, MapPin } from "lucide-react";
 
 export function About() {
-  const engineeringPillars = [
+  const pillars = [
     {
-      title: "Pragmatic Architecture",
-      desc: "Balancing elegant code with real-world requirements. Every system is built modular, maintainable, and verifiable.",
+      title: "Analytical Engineering",
+      desc: "Deconstruct complex problem domains into modular architectures, database schemas, and resilient service logic.",
       icon: Terminal,
     },
     {
       title: "Full-Stack Integration",
-      desc: "Bridging modern frontend reactivity with structured backend controllers and relational SQL / document storage.",
+      desc: "Seamlessly bridging modern client reactivity with structured backend controllers, RESTful endpoints, and SQL persistence.",
       icon: Code,
     },
     {
-      title: "Iterative Engineering",
-      desc: "Shipping in tight feedback loops, automated testing, peer reviews, and incremental enhancement.",
-      icon: Compass,
+      title: "Purposeful Polish",
+      desc: "Every interaction, keyframe, and interface element is built with intention, ensuring high performance and accessibility.",
+      icon: Cpu,
     },
   ];
 
   return (
-    <section id="about" className="relative py-24 sm:py-32 bg-brand-dark overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 -left-48 w-96 h-96 rounded-full bg-brand-orange/10 blur-[120px] pointer-events-none" />
+    <section id="about" className="relative py-28 sm:py-36 bg-heist-black film-grain overflow-hidden border-t border-heist-border">
+      {/* Background ambient spotlight */}
+      <div className="absolute top-1/2 -left-48 w-[450px] h-[450px] rounded-full bg-heist-red/10 blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          tag="01 // PHILOSOPHY"
-          title="MORE THAN"
-          highlight="JUST CODE."
-          subtitle="Building practical digital solutions through a blend of technical discipline, creative problem-solving, and continuous learning."
+          tag="MISSION BRIEFING // 01"
+          title="THE PERSON"
+          highlight="BEHIND THE OPERATION."
+          subtitle="A disciplined Computer Engineering undergraduate transforming complex requirements into reliable, user-focused digital solutions."
         />
 
-        {/* Editorial 2-Column Grid */}
+        {/* Asymmetrical Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Left Column: Narrative & Philosophy */}
+          {/* Left Column: Narrative Statement */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-7 space-y-6 text-brand-secondary leading-relaxed"
+            className="lg:col-span-7 space-y-8"
           >
-            <div className="p-8 rounded-3xl bg-brand-surface/60 border border-white/10 shadow-xl space-y-4">
-              <h3 className="font-syne text-2xl sm:text-3xl font-extrabold text-white">
-                Engineering With Purpose
+            {/* Primary Narrative Dossier */}
+            <div className="p-8 sm:p-10 rounded-2xl bg-heist-dark border border-heist-border space-y-5 shadow-2xl relative">
+              <div className="flex items-center justify-between pb-3 border-b border-heist-border text-xs font-technical text-heist-muted">
+                <span>DOSSIER // CONFIDENTIAL</span>
+                <span className="text-heist-red font-bold">CLEARANCE: GRANTED</span>
+              </div>
+
+              <h3 className="font-bebas text-3xl sm:text-4xl text-heist-text tracking-wide">
+                Turning Vision Into Precision Code
               </h3>
-              <p className="text-base sm:text-lg text-neutral-200 leading-relaxed">
-                {profileData.shortIntro}
-              </p>
-              <p className="text-sm sm:text-base text-brand-secondary/90 leading-relaxed">
-                I enjoy working across frontend and backend technologies, developing web applications, integrating APIs and exploring modern software development. I believe great software is not just about writing lines of syntax—it is about creating dependable tools that simplify processes and deliver intuitive user experiences.
-              </p>
-              <div className="pt-2 flex items-center gap-2 text-xs font-mono-code text-brand-yellow">
-                <MapPin className="w-4 h-4 text-brand-orange" />
-                <span>Based in {profileData.location}</span>
+
+              <div className="space-y-4 text-neutral-300 font-sans-body text-sm sm:text-base leading-relaxed">
+                <p>
+                  I&apos;m <span className="text-white font-semibold">{profileData.fullName}</span>, a Computer Engineering student and aspiring Full Stack Developer passionate about building meaningful digital products.
+                </p>
+                <p>
+                  I enjoy transforming ideas into functional, beautiful, and user-focused web experiences.
+                </p>
+                <p className="text-heist-muted">
+                  Through internships, academic projects, and independent development, I&apos;ve been continuously exploring modern technologies and improving my ability to solve real-world problems.
+                </p>
+              </div>
+
+              <div className="pt-2 flex items-center gap-2 text-xs font-technical text-heist-red">
+                <MapPin className="w-4 h-4 text-heist-red" />
+                <span>Base of Operations: {profileData.location}</span>
               </div>
             </div>
 
-            {/* Three Core Engineering Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              {engineeringPillars.map((pillar) => {
+            {/* Three Pillars */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {pillars.map((pillar) => {
                 const Icon = pillar.icon;
                 return (
                   <div
                     key={pillar.title}
-                    className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brand-orange/40 transition-colors space-y-2.5"
+                    className="p-5 rounded-xl bg-heist-dark/60 border border-heist-border hover:border-heist-red/50 transition-colors space-y-2.5"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-brand-orange/15 flex items-center justify-center text-brand-orange">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-9 h-9 rounded-lg bg-heist-red/10 border border-heist-red/20 flex items-center justify-center text-heist-red">
+                      <Icon className="w-4 h-4" />
                     </div>
-                    <h4 className="font-syne font-bold text-white text-base">
+                    <h4 className="font-technical font-bold text-white text-sm">
                       {pillar.title}
                     </h4>
-                    <p className="text-xs text-brand-muted leading-relaxed">
+                    <p className="text-xs text-heist-muted leading-relaxed">
                       {pillar.desc}
                     </p>
                   </div>
@@ -90,7 +102,7 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Right Column: Education & Academic Milestones */}
+          {/* Right Column: Academic Base & Milestones */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,71 +110,62 @@ export function About() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 space-y-6"
           >
-            {/* Education Card */}
-            <div className="relative p-8 rounded-3xl bg-gradient-to-br from-brand-surface to-[#1A1A1E] border border-brand-orange/30 shadow-2xl space-y-6">
+            {/* Education Clearance Card */}
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-heist-dark to-heist-surface border border-heist-border space-y-6 shadow-xl">
               <div className="flex items-center justify-between">
-                <span className="px-3 py-1 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-xs font-mono-code text-brand-orange font-bold uppercase tracking-wider">
-                  Academic Degree
+                <span className="px-3 py-1 rounded bg-heist-red/15 border border-heist-red/40 text-xs font-technical text-heist-red font-bold uppercase tracking-wider">
+                  Academic Foundation
                 </span>
-                <span className="text-xs font-mono-code text-brand-yellow font-bold">
-                  CGPA: {educationData.cgpa}
+                <span className="text-xs font-technical text-neutral-300">
+                  CGPA: {profileData.education.cgpa}
                 </span>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-white/10 text-brand-yellow">
+                  <div className="p-2.5 rounded-lg bg-white/5 text-heist-red border border-white/10">
                     <GraduationCap className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-syne text-xl font-bold text-white">
-                      {educationData.degree}
+                    <h4 className="font-bebas text-2xl text-white tracking-wide">
+                      {profileData.education.degree}
                     </h4>
-                    <p className="text-xs text-brand-muted font-mono-code">
-                      {educationData.duration}
+                    <p className="text-xs text-heist-muted font-technical">
+                      {profileData.education.duration}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm font-semibold text-brand-secondary pt-2">
-                  {educationData.institution}
+                <p className="text-sm font-semibold text-heist-text pt-2">
+                  {profileData.education.institution}
                 </p>
-                <p className="text-xs text-brand-muted">
-                  Affiliated to {educationData.university} · {educationData.location}
+                <p className="text-xs text-heist-muted">
+                  Affiliated to {profileData.education.university} · {profileData.education.location}
                 </p>
               </div>
 
-              <div className="space-y-2.5 pt-4 border-t border-white/10">
-                <p className="text-xs font-mono-code text-brand-yellow uppercase tracking-wider font-semibold">
-                  Key Academic Highlights
-                </p>
-                {educationData.highlights.map((highlight, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-brand-secondary">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange mt-0.5 shrink-0" />
-                    <span>{highlight}</span>
-                  </div>
-                ))}
+              <div className="pt-4 border-t border-heist-border space-y-2 text-xs font-technical text-heist-muted">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-heist-red" />
+                  <span>Curriculum: Algorithms, Database Architecture, Systems</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-heist-red" />
+                  <span>Departmental symposiums &amp; technical presentations</span>
+                </div>
               </div>
             </div>
 
-            {/* Quick Stats Grid */}
+            {/* Quick Metrics */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 text-center">
-                <p className="font-syne text-3xl font-extrabold text-brand-orange">
-                  2027
-                </p>
-                <p className="text-xs text-brand-muted mt-1 font-mono-code">
-                  Graduation Year
-                </p>
+              <div className="p-5 rounded-xl bg-heist-dark border border-heist-border text-center">
+                <p className="font-bebas text-4xl text-heist-red">2027</p>
+                <p className="text-xs text-heist-muted font-technical mt-0.5">B.Tech Degree</p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 text-center">
-                <p className="font-syne text-3xl font-extrabold text-brand-yellow">
-                  7+
-                </p>
-                <p className="text-xs text-brand-muted mt-1 font-mono-code">
-                  Certifications
-                </p>
+              <div className="p-5 rounded-xl bg-heist-dark border border-heist-border text-center">
+                <p className="font-bebas text-4xl text-white">2+</p>
+                <p className="text-xs text-heist-muted font-technical mt-0.5">Internship Missions</p>
               </div>
             </div>
           </motion.div>

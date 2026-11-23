@@ -1,11 +1,12 @@
 export interface Project {
   id: string;
+  codeName?: string;
   title: string;
   category: string;
   year: string;
   status?: string;
   description: string;
-  longDescription?: string;
+  longDescription: string;
   features: string[];
   technologies: string[];
   githubUrl?: string;
@@ -14,26 +15,26 @@ export interface Project {
   accentColor: string;
 }
 
-export interface Experience {
+export interface ExperienceItem {
   id: string;
-  company: string;
   role: string;
-  period: string;
-  joiningDate?: string;
+  company: string;
+  duration: string;
   mode: string;
-  isUpcoming?: boolean;
-  statusBadge?: string;
+  isUpcoming: boolean;
+  statusBadge: string;
+  scopeSummary: string;
   responsibilities: string[];
   technologies: string[];
-  highlight?: string;
 }
 
 export interface SkillCategory {
   category: string;
+  tag: string;
   skills: {
     name: string;
-    levelDescription?: string;
-    iconName?: string;
+    description: string;
+    verified: boolean;
   }[];
 }
 
@@ -44,7 +45,7 @@ export interface Education {
   duration: string;
   cgpa: string;
   location: string;
-  highlights: string[];
+  highlights?: string[];
 }
 
 export interface Certification {

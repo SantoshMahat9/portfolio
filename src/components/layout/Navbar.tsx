@@ -2,23 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { profileData } from "@/data/profile";
-import { Menu, X, ArrowUpRight, FileText } from "lucide-react";
+import { Menu, X, ArrowUpRight, FileText, Radio } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const NAV_ITEMS = [
-  { label: "HOME", hash: "#hero", path: "/" },
-  { label: "WORK", hash: "#work", path: "/projects" },
-  { label: "ABOUT", hash: "#about", path: "/about" },
-  { label: "EXPERIENCE", hash: "#experience", path: "/experience" },
-  { label: "TOOLKIT", hash: "#toolkit", path: "/skills" },
-  { label: "CONTACT", hash: "#contact", path: "/contact" },
+  { label: "OVERVIEW", href: "#hero" },
+  { label: "BRIEFING", href: "#about" },
+  { label: "ARSENAL", href: "#skills" },
+  { label: "OPERATIONS", href: "#projects" },
+  { label: "MISSIONS", href: "#experience" },
+  { label: "APPROACH", href: "#approach" },
+  { label: "COMMAND", href: "#contact" },
 ];
 
 export function Navbar() {
-  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -27,8 +26,7 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      // Simple active section detector
-      const sections = ["hero", "work", "about", "experience", "toolkit", "contact"];
+      const sections = ["hero", "about", "skills", "projects", "experience", "approach", "contact"];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -50,44 +48,46 @@ export function Navbar() {
       <header
         className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "py-3 bg-brand-dark/85 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-            : "py-6 bg-transparent"
+            ? "py-3 bg-heist-black/90 backdrop-blur-xl border-b border-heist-border shadow-2xl"
+            : "py-5 bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Codename */}
           <Link
             href="#hero"
-            className="group flex items-center gap-1.5 focus:outline-none"
+            className="group flex items-center gap-2.5 focus:outline-none"
             aria-label="Santosh Mahato Home"
           >
-            <span className="font-syne text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-brand-orange transition-colors">
-              {profileData.brandName}
-            </span>
-            <span className="w-2 h-2 rounded-full bg-brand-orange group-hover:bg-brand-yellow group-hover:scale-125 transition-all duration-300" />
+            <span className="w-2.5 h-2.5 rounded-full bg-heist-red group-hover:scale-125 transition-transform duration-300" />
+            <div className="flex flex-col">
+              <span className="font-bebas text-2xl tracking-wider text-white group-hover:text-heist-red transition-colors">
+                {profileData.brandName}
+              </span>
+              <span className="text-[9px] font-technical text-heist-muted tracking-widest -mt-1 hidden sm:block">
+                FULL STACK ARCHITECT
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-brand-surface/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+          {/* Desktop Classified Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1 bg-heist-dark/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-heist-border">
             {NAV_ITEMS.map((item) => {
-              const targetHref = pathname === "/" ? item.hash : `/${item.hash}`;
-              const isActive =
-                pathname === item.path ||
-                (pathname === "/" && activeSection === item.hash.replace("#", ""));
+              const isActive = activeSection === item.href.replace("#", "");
               return (
                 <Link
                   key={item.label}
-                  href={targetHref}
-                  className={`relative px-4 py-1.5 text-xs font-mono-code font-bold tracking-wider rounded-full transition-all duration-300 ${
+                  href={item.href}
+                  className={`relative px-3.5 py-1.5 text-xs font-technical font-bold tracking-wider rounded-lg transition-all duration-300 ${
                     isActive
-                      ? "text-brand-yellow"
-                      : "text-brand-secondary hover:text-white hover:bg-white/5"
+                      ? "text-white"
+                      : "text-heist-muted hover:text-white hover:bg-white/5"
                   }`}
                 >
                   {isActive && (
                     <motion.span
-                      layoutId="navPill"
-                      className="absolute inset-0 bg-brand-orange/20 border border-brand-orange/40 rounded-full"
+                      layoutId="activeHeistNav"
+                      className="absolute inset-0 bg-heist-red/20 border border-heist-red/50 rounded-lg"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -97,16 +97,16 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right CTA Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right Action */}
+          <div className="hidden sm:flex items-center gap-3">
             <Button
               variant="outline"
               size="sm"
               href={profileData.links.resume}
               isExternal
-              icon={<FileText className="w-3.5 h-3.5 text-brand-yellow" />}
+              icon={<FileText className="w-3.5 h-3.5 text-heist-red" />}
             >
-              Resume
+              Resume Dossier
             </Button>
             <Button
               variant="primary"
@@ -114,22 +114,22 @@ export function Navbar() {
               href="#contact"
               showArrow
             >
-              Get in Touch
+              Initiate Comms
             </Button>
           </div>
 
-          {/* Mobile Hamburger Button */}
+          {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl bg-brand-surface/80 border border-white/10 text-white focus:outline-none"
+            className="lg:hidden p-2.5 rounded-xl bg-heist-dark border border-heist-border text-white focus:outline-none"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-heist-red" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -137,23 +137,25 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-[70px] z-30 bg-brand-dark/95 backdrop-blur-2xl border-b border-white/15 p-6 md:hidden shadow-2xl"
+            className="fixed inset-x-0 top-[70px] z-30 bg-heist-black/95 backdrop-blur-2xl border-b border-heist-border p-6 lg:hidden shadow-2xl film-grain"
           >
-            <nav className="flex flex-col space-y-3">
-              {NAV_ITEMS.map((item) => {
-                const targetHref = pathname === "/" ? item.hash : `/${item.hash}`;
-                return (
-                  <Link
-                    key={item.label}
-                    href={targetHref}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 rounded-2xl bg-white/5 hover:bg-brand-orange/20 text-sm font-mono-code font-bold tracking-wider text-white hover:text-brand-yellow transition-all flex items-center justify-between"
-                  >
-                    <span>{item.label}</span>
-                    <ArrowUpRight className="w-4 h-4 text-brand-orange" />
-                  </Link>
-                );
-              })}
+            <nav className="flex flex-col space-y-2">
+              <div className="pb-2 border-b border-heist-border flex items-center justify-between text-[10px] font-technical text-heist-muted">
+                <span>CLASSIFIED MISSION INDEX</span>
+                <span className="text-heist-red font-bold">CLEARANCE: LEVEL 5</span>
+              </div>
+
+              {NAV_ITEMS.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-3 rounded-xl bg-heist-dark hover:bg-heist-surface text-sm font-technical font-bold tracking-wider text-white hover:text-heist-red transition-all flex items-center justify-between border border-white/5"
+                >
+                  <span>{item.label}</span>
+                  <ArrowUpRight className="w-4 h-4 text-heist-red" />
+                </Link>
+              ))}
 
               <div className="pt-4 flex flex-col gap-3">
                 <Button
@@ -162,14 +164,14 @@ export function Navbar() {
                   href="#contact"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Let&apos;s Connect
+                  Initiate Comms
                 </Button>
                 <Button
                   variant="secondary"
                   size="md"
                   href={profileData.links.resume}
                   isExternal
-                  icon={<FileText className="w-4 h-4 text-brand-yellow" />}
+                  icon={<FileText className="w-4 h-4 text-heist-red" />}
                 >
                   Download Resume
                 </Button>

@@ -4,23 +4,21 @@ import { profileData } from "@/data/profile";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://santosh-portfolio.vercel.app"),
-  title: `${profileData.displayName} — ${profileData.role} | 3D Creative Portfolio`,
-  description: `${profileData.shortIntro} Explore projects, experience at Kantascrypt, certifications, and technical toolkit.`,
+  title: `${profileData.brandName} — ${profileData.role} | Cinematic Portfolio`,
+  description: `${profileData.heroSupporting} Explore engineering missions at Kantascrypt, technical arsenal, and full-stack projects.`,
   keywords: [
     "Santosh Mahato",
-    "Santosh Sanjeev Mahato",
     "Full Stack Developer",
     "Creative Developer",
-    "3D Web Developer",
+    "Money Heist Portfolio",
     "Computer Engineering",
-    "St. John College of Engineering and Management",
-    "Portfolio",
+    "St. John College of Engineering",
     "React",
     "Next.js",
     "Three.js",
-    "Python",
     ".NET",
-    "WhatsApp API",
+    "SQL",
+    "Node.js",
   ],
   authors: [{ name: profileData.fullName, url: profileData.links.linkedin }],
   creator: profileData.fullName,
@@ -28,22 +26,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://santosh-portfolio.vercel.app",
-    title: `${profileData.displayName} — ${profileData.role}`,
-    description: profileData.tagline + " " + profileData.secondaryHeadline,
+    title: `${profileData.brandName} — ${profileData.role}`,
+    description: profileData.tagline,
     siteName: `${profileData.brandName} Portfolio`,
     images: [
       {
         url: "/images/profile/santosh-portrait.png",
         width: 1200,
         height: 1200,
-        alt: `${profileData.fullName} — 3D Character Identity`,
+        alt: `${profileData.fullName} — 3D Character Avatar`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profileData.displayName} — ${profileData.role}`,
-    description: profileData.secondaryHeadline,
+    title: `${profileData.brandName} — ${profileData.role}`,
+    description: profileData.tagline,
     images: ["/images/profile/santosh-portrait.png"],
   },
   robots: {
@@ -64,9 +62,9 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: profileData.fullName,
-    alternateName: profileData.displayName,
+    alternateName: profileData.brandName,
     jobTitle: profileData.role,
-    description: profileData.shortIntro,
+    description: profileData.heroSupporting,
     email: profileData.email,
     address: {
       "@type": "PostalAddress",
@@ -76,7 +74,7 @@ export default function RootLayout({
     },
     alumniOf: {
       "@type": "CollegeOrUniversity",
-      name: "St. John College of Engineering and Management, Palghar (University of Mumbai)",
+      name: profileData.education.institution,
     },
     sameAs: [
       profileData.links.github,
@@ -92,7 +90,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-brand-dark text-white antialiased selection:bg-brand-orange selection:text-white min-h-screen flex flex-col">
+      <body className="bg-heist-black text-heist-text antialiased selection:bg-heist-red selection:text-white min-h-screen flex flex-col font-sans-body">
         {children}
       </body>
     </html>

@@ -19,11 +19,10 @@ export function HeroScene() {
   }, []);
 
   if (!mounted || prefersReducedMotion) {
-    // Clean, high-performance static fallback
+    // Clean static fallback
     return (
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-orange/15 blur-3xl" />
-        <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-brand-yellow/10 blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-heist-red/10 blur-3xl" />
       </div>
     );
   }
@@ -36,15 +35,13 @@ export function HeroScene() {
         dpr={[1, 1.5]}
         className="w-full h-full"
       >
-        <ambientLight intensity={0.7} />
-        {/* Main fiery orange rim light */}
-        <pointLight position={[-6, 3, 4]} intensity={45} color="#FF4D1C" />
-        {/* Warm yellow key light */}
-        <pointLight position={[6, -2, 3]} intensity={35} color="#FFC247" />
-        {/* Red accent light from below */}
-        <pointLight position={[0, -5, 2]} intensity={25} color="#E93616" />
-        {/* Soft directional fill */}
-        <directionalLight position={[0, 5, 5]} intensity={0.9} color="#FFFFFF" />
+        <ambientLight intensity={0.5} />
+        {/* Main Heist crimson rim light */}
+        <pointLight position={[6, 3, 3]} intensity={40} color="#E50914" />
+        {/* Deep dark red fill */}
+        <pointLight position={[-6, -2, 2]} intensity={25} color="#720D12" />
+        {/* Soft overhead white directional */}
+        <directionalLight position={[0, 5, 5]} intensity={0.8} color="#FFFFFF" />
 
         <Suspense fallback={null}>
           <FloatingObjects />

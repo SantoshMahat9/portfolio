@@ -1,39 +1,49 @@
-import { Experience } from "@/types";
+export interface ExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  duration: string;
+  mode: string;
+  isUpcoming: boolean;
+  statusBadge: string;
+  scopeSummary: string;
+  responsibilities: string[];
+  technologies: string[];
+}
 
-export const experienceData: Experience[] = [
+export const experienceData: ExperienceItem[] = [
   {
     id: "acelia-technologies",
-    company: "Acelia Technologies",
     role: "Full Stack Developer Intern",
-    period: "Upcoming · Joining 1 December 2026",
-    joiningDate: "1 December 2026",
+    company: "Acelia Technologies",
+    duration: "Upcoming · Joining 1 December 2026",
     mode: "Hybrid",
     isUpcoming: true,
-    statusBadge: "Offer Received / Upcoming Role",
+    statusBadge: "MISSION OFFERED / CONFIRMED FOR DEC 2026",
+    scopeSummary: "Pre-placement internship offer confirmed during undergraduate engineering study at St. John College of Engineering.",
     responsibilities: [
-      "Role offered and confirmed for December 2026.",
-      "Scheduled to collaborate on full stack engineering, client feature development, and modern cloud application ecosystems upon commencement.",
-      "Focusing on pre-joining technical alignment across modern enterprise web stacks.",
+      "Scheduled to collaborate on full-stack application development and scalable feature engineering.",
+      "Pre-engagement alignment across modern enterprise software ecosystems and API protocols.",
+      "Direct continuation of academic and practical full-stack capabilities.",
     ],
     technologies: ["Full Stack Architecture", "API Integration", "Web Engineering"],
-    highlight: "Pre-placement offer received during undergraduate engineering study.",
   },
   {
     id: "kantascrypt",
+    role: "Full Stack Developer Intern",
     company: "Kantascrypt",
-    role: "Intern Developer",
-    period: "March 2024 – April 2024",
+    duration: "March 2024 – April 2024",
     mode: "Onsite",
     isUpcoming: false,
-    statusBadge: "Completed Internship",
+    statusBadge: "MISSION COMPLETED",
+    scopeSummary: "Engineered core backend and relational schemas for a production Personal Expense Tracker.",
     responsibilities: [
-      "Collaborated with a team of engineering interns to build a Personal Expense Tracker.",
-      "Designed and managed relational SQL databases for personal finance and transactional records.",
-      "Developed core backend logic and service layers using .NET.",
-      "Actively participated in debugging sessions, issue resolution, and peer code reviews.",
-      "Worked in short iterations with shared tasks and recurring progress check-ins.",
+      "Collaborated in a team of engineering interns to design and develop the Personal Expense Tracker application.",
+      "Designed, maintained, and optimized relational SQL database schemas for personal financial records.",
+      "Implemented core backend logic and service endpoints using .NET / C#.",
+      "Engaged in active debugging, issue resolution, and iterative peer code reviews.",
+      "Delivered functional features in short agile development sprints with scheduled progress check-ins.",
     ],
-    technologies: [".NET", "SQL", "C#", "Database Design", "Agile Review"],
-    highlight: "Successfully shipped core database schemas and service endpoints on schedule.",
+    technologies: [".NET", "SQL", "C#", "Database Schemas", "Agile Sprints"],
   },
 ];

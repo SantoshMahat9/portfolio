@@ -37,9 +37,9 @@ export function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-surface border border-white/10 text-xs font-mono-code text-brand-yellow uppercase tracking-widest"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-heist-dark border border-heist-border text-xs font-technical text-heist-red uppercase tracking-widest"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-heist-red animate-pulse" />
           {tag}
         </motion.div>
       )}
@@ -49,11 +49,11 @@ export function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="font-syne text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08]"
+        className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wide text-heist-text leading-[0.95]"
       >
         {title}{" "}
         {highlight && (
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-brand-orange-deep to-brand-yellow">
+          <span className="text-heist-red">
             {highlight}
           </span>
         )}
@@ -65,11 +65,14 @@ export function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-2xl text-base sm:text-lg text-brand-secondary leading-relaxed font-normal"
+          className="max-w-2xl text-sm sm:text-base text-heist-muted leading-relaxed font-sans-body"
         >
           {subtitle}
         </motion.p>
       )}
+
+      {/* Subtle red laser indicator underline */}
+      <div className={cn("w-20 h-[2px] bg-heist-red/80 mt-2", isCenter ? "mx-auto" : "")} />
     </div>
   );
 }

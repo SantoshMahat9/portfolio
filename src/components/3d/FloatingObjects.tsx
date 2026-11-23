@@ -49,66 +49,70 @@ export function FloatingObjects() {
 
   return (
     <group ref={groupRef}>
-      {/* Floating Chrome Ring - Pushed far top-left in periphery */}
+      {/* Floating Dark Steel Ring with Crimson Emissive Rim - Top Left */}
       <Float speed={2} rotationIntensity={0.8} floatIntensity={1}>
         <mesh ref={torusRef1} position={[-6.2, 2.8, -1.5]} scale={0.65}>
-          <torusGeometry args={[1.2, 0.22, 24, 48]} />
+          <torusGeometry args={[1.2, 0.2, 24, 48]} />
           <meshStandardMaterial
-            color="#FFFFFF"
-            metalness={0.95}
-            roughness={0.1}
-            emissive="#FF4D1C"
+            color="#141414"
+            metalness={0.9}
+            roughness={0.15}
+            emissive="#E50914"
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+      </Float>
+
+      {/* Floating Crimson Core Vault Polyhedron - Top Right */}
+      <Float speed={2.2} rotationIntensity={1} floatIntensity={1.2}>
+        <mesh ref={icosaRef} position={[6.4, 2.5, -2]} scale={0.7}>
+          <icosahedronGeometry args={[1, 0]} />
+          <meshStandardMaterial
+            color="#E50914"
+            metalness={0.85}
+            roughness={0.2}
+            emissive="#720D12"
+            emissiveIntensity={0.4}
+          />
+        </mesh>
+      </Float>
+
+      {/* Floating Tactical Octahedron - Far bottom-left */}
+      <Float speed={1.8} rotationIntensity={0.8} floatIntensity={1}>
+        <mesh ref={octaRef} position={[-6.0, -2.6, -1]} scale={0.55}>
+          <octahedronGeometry args={[1, 0]} />
+          <meshStandardMaterial
+            color="#1F1F1F"
+            metalness={0.92}
+            roughness={0.15}
+            emissive="#E50914"
             emissiveIntensity={0.2}
           />
         </mesh>
       </Float>
 
-      {/* Floating Orange Core Polyhedron - Pushed far top-right */}
-      <Float speed={2.2} rotationIntensity={1} floatIntensity={1.2}>
-        <mesh ref={icosaRef} position={[6.4, 2.5, -2]} scale={0.7}>
-          <icosahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial
-            color="#FF4D1C"
-            metalness={0.85}
-            roughness={0.2}
-            emissive="#E93616"
-            emissiveIntensity={0.35}
-          />
-        </mesh>
-      </Float>
-
-      {/* Floating Amber Octahedron - Far bottom-left */}
-      <Float speed={1.8} rotationIntensity={0.8} floatIntensity={1}>
-        <mesh ref={octaRef} position={[-6.0, -2.6, -1]} scale={0.55}>
-          <octahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial
-            color="#FFC247"
-            metalness={0.9}
-            roughness={0.15}
-            emissive="#FFC247"
-            emissiveIntensity={0.25}
-          />
-        </mesh>
-      </Float>
-
-      {/* Futuristic Chrome Ring - Far bottom-right */}
+      {/* Futuristic Security Laser Ring - Far bottom-right */}
       <Float speed={2} rotationIntensity={0.9} floatIntensity={1.1}>
         <mesh ref={torusRef2} position={[6.2, -2.8, -1.5]} scale={0.55}>
-          <torusGeometry args={[1.3, 0.14, 24, 48]} />
+          <torusGeometry args={[1.3, 0.12, 24, 48]} />
           <meshStandardMaterial
-            color="#E0E0E0"
+            color="#E50914"
             metalness={0.98}
             roughness={0.08}
-            emissive="#FF4D1C"
-            emissiveIntensity={0.15}
+            emissive="#E50914"
+            emissiveIntensity={0.4}
           />
         </mesh>
       </Float>
 
-      {/* Subtle Background Ring - Deep in z space */}
+      {/* Subtle Background Red Target Rings in deep z space */}
       <mesh position={[0, 0, -5]} rotation={[-Math.PI / 3.5, 0, 0]}>
-        <ringGeometry args={[7.2, 7.25, 80]} />
-        <meshBasicMaterial color="#FF4D1C" opacity={0.15} transparent />
+        <ringGeometry args={[7.2, 7.24, 80]} />
+        <meshBasicMaterial color="#E50914" opacity={0.2} transparent />
+      </mesh>
+      <mesh position={[0, 0, -5.1]} rotation={[-Math.PI / 3.5, 0, 0]}>
+        <ringGeometry args={[8.4, 8.44, 80]} />
+        <meshBasicMaterial color="#720D12" opacity={0.12} transparent />
       </mesh>
     </group>
   );
