@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { DirectionSwitcher } from "@/components/ui/DirectionSwitcher";
 import { profileData } from "@/data/profile";
 
 export const metadata: Metadata = {
@@ -96,9 +95,8 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-brand-dark text-white antialiased selection:bg-brand-orange selection:text-white min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 w-full">{children}</main>
-        <Footer />
+        {children}
+        <DirectionSwitcher />
       </body>
     </html>
   );
