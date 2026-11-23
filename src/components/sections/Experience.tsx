@@ -23,7 +23,7 @@ export function ExperienceSection() {
         {/* Timeline Stream */}
         <div className="relative mt-12 max-w-4xl mx-auto space-y-12">
           {/* Vertical Timeline Guide Line */}
-          <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-[2px] bg-gradient-to-b from-brand-orange via-brand-yellow to-white/10 hidden sm:block" />
+          <div className="absolute left-8 top-4 bottom-4 w-[2px] bg-gradient-to-b from-brand-orange via-brand-yellow to-white/10 hidden sm:block" />
 
           {experienceData.map((exp, index) => {
             const isUpcoming = exp.isUpcoming;
@@ -38,7 +38,7 @@ export function ExperienceSection() {
                 className="relative pl-0 sm:pl-20"
               >
                 {/* Timeline Node Icon */}
-                <div className="hidden sm:flex absolute left-4 -translate-x-1/2 top-6 w-8 h-8 rounded-full items-center justify-center bg-brand-dark border-2 border-brand-orange shadow-lg shadow-brand-orange/30 z-10">
+                <div className="hidden sm:flex absolute left-8 -translate-x-1/2 top-6 w-8 h-8 rounded-full items-center justify-center bg-brand-dark border-2 border-brand-orange shadow-lg shadow-brand-orange/30 z-10">
                   {isUpcoming ? (
                     <Clock className="w-4 h-4 text-brand-yellow animate-spin" style={{ animationDuration: "8s" }} />
                   ) : (
