@@ -8,7 +8,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import {
   Mail,
-  Phone,
   Linkedin,
   Github,
   MapPin,
@@ -126,7 +125,7 @@ export function ContactSection() {
                 Direct Contact Channels
               </h3>
               <p className="text-sm text-brand-secondary leading-relaxed">
-                Feel free to reach out directly via email, phone, or connect on LinkedIn and GitHub. I respond promptly to inquiries.
+                Feel free to reach out directly via email or connect on LinkedIn and GitHub. I respond promptly to inquiries.
               </p>
 
               {/* Email item */}
@@ -160,35 +159,20 @@ export function ContactSection() {
                 </button>
               </div>
 
-              {/* Phone item */}
-              <div className="p-4 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between group hover:border-brand-yellow/50 transition-colors">
-                <a
-                  href={profileData.links.phone}
-                  className="flex items-center gap-3"
-                >
-                  <div className="p-2.5 rounded-xl bg-brand-yellow/15 text-brand-yellow shrink-0">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-brand-muted font-mono-code">Direct Phone</p>
-                    <p className="text-sm font-semibold text-white group-hover:text-brand-yellow transition-colors">
-                      {profileData.formattedPhone}
-                    </p>
-                  </div>
-                </a>
-
-                <button
-                  onClick={() => copyToClipboard(profileData.phone, "phone")}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-brand-muted hover:text-white transition-colors shrink-0 ml-2"
-                  title="Copy phone to clipboard"
-                  aria-label="Copy phone"
-                >
-                  {copiedType === "phone" ? (
-                    <Check className="w-4 h-4 text-brand-yellow" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
+              {/* Fast Response & Availability Card */}
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/10 flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 shrink-0">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                  </span>
+                </div>
+                <div>
+                  <p className="text-xs text-brand-muted font-mono-code">Response Time</p>
+                  <p className="text-sm font-semibold text-white">
+                    Within 24 Hours · Open to Opportunities
+                  </p>
+                </div>
               </div>
 
               {/* Location Card */}

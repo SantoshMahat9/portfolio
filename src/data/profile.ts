@@ -17,13 +17,10 @@ export const profileData = {
     "I'm Santosh Mahato, a Computer Engineering student and developer passionate about building meaningful digital experiences through technology, creativity and problem-solving.",
   location: "Boisar, Maharashtra, India",
   email: "santoshkumarmahato284@gmail.com",
-  phone: "8329224214",
-  formattedPhone: "+91 83292 24214",
   links: {
     github: "https://github.com/SantoshMahat9",
     linkedin: "https://linkedin.com/in/santoshmah",
     email: "mailto:santoshkumarmahato284@gmail.com",
-    phone: "tel:+918329224214",
     resume: "/resume/Santosh_Mahato_Resume.pdf",
   },
   stats: [

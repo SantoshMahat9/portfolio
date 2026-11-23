@@ -110,7 +110,7 @@ export default function ConceptBPage() {
             {/* Interactive Cyber Terminal Diagnostic Console */}
             <div className="p-5 rounded-2xl bg-black/70 border border-purple-500/30 font-mono text-xs space-y-2 shadow-2xl shadow-purple-950/50">
               <div className="flex items-center justify-between pb-2 border-b border-purple-500/20 text-neutral-400">
-                <span>TERMINAL_SESSION // 8329224214</span>
+                <span>TERMINAL_SESSION // SANTOSH.ENGINEERING</span>
                 <span className="text-purple-400">CONNECTED</span>
               </div>
               <div className="space-y-1 text-neutral-300">
@@ -353,8 +353,8 @@ export default function ConceptBPage() {
             <p className="text-white font-bold">{profileData.email}</p>
           </div>
           <div className="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 space-y-1">
-            <p className="text-purple-400">TELEPHONE_NODE</p>
-            <p className="text-white font-bold">{profileData.formattedPhone}</p>
+            <p className="text-purple-400">PRIMARY_LOCATION</p>
+            <p className="text-white font-bold">{profileData.location}</p>
           </div>
         </div>
 

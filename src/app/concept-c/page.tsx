@@ -297,11 +297,9 @@ export default function ConceptCPage() {
             </div>
 
             <div className="space-y-1">
-              <span className="text-neutral-500">TELEPHONE</span>
-              <p>
-                <a href={profileData.links.phone} className="text-white hover:underline text-sm font-sans">
-                  {profileData.formattedPhone}
-                </a>
+              <span className="text-neutral-500">PRIMARY LOCATION</span>
+              <p className="text-white text-sm font-sans">
+                {profileData.location}
               </p>
             </div>
           </div>

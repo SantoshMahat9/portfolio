@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DirectionSwitcher } from "@/components/ui/DirectionSwitcher";
 import { profileData } from "@/data/profile";
 
 export const metadata: Metadata = {
@@ -69,7 +68,6 @@ export default function RootLayout({
     jobTitle: profileData.role,
     description: profileData.shortIntro,
     email: profileData.email,
-    telephone: profileData.formattedPhone,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Boisar",
@@ -96,7 +94,6 @@ export default function RootLayout({
       </head>
       <body className="bg-brand-dark text-white antialiased selection:bg-brand-orange selection:text-white min-h-screen flex flex-col">
         {children}
-        <DirectionSwitcher />
       </body>
     </html>
   );

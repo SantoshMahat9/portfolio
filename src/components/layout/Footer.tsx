@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { profileData } from "@/data/profile";
-import { ArrowUp, Github, Linkedin, Mail, Phone, Heart } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Heart } from "lucide-react";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -55,13 +55,6 @@ export function Footer() {
                 className="p-2.5 rounded-full bg-white/5 hover:bg-white/15 text-white transition-colors border border-white/10 hover:border-brand-orange/50"
               >
                 <Mail className="w-4 h-4" />
-              </a>
-              <a
-                href={profileData.links.phone}
-                aria-label="Call Santosh"
-                className="p-2.5 rounded-full bg-white/5 hover:bg-white/15 text-white transition-colors border border-white/10 hover:border-brand-orange/50"
-              >
-                <Phone className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -121,12 +114,6 @@ export function Footer() {
                   className="text-brand-orange hover:underline underline-offset-4"
                 >
                   {profileData.email}
-                </a>
-              </p>
-              <p>
-                <span className="text-white font-medium">Phone:</span>{" "}
-                <a href={profileData.links.phone} className="text-brand-orange hover:underline">
-                  {profileData.formattedPhone}
                 </a>
               </p>
               <p>
