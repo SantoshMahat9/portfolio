@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { profileData } from "@/data/profile";
 import { Menu, X, ArrowUpRight, FileText, Radio } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { heistAudio } from "@/lib/audioEngine";
 
 const NAV_ITEMS = [
   { label: "OVERVIEW", href: "#hero" },
@@ -13,7 +14,8 @@ const NAV_ITEMS = [
   { label: "ARSENAL", href: "#skills" },
   { label: "OPERATIONS", href: "#projects" },
   { label: "MISSIONS", href: "#experience" },
-  { label: "APPROACH", href: "#approach" },
+  { label: "CLEARANCE", href: "#certifications" },
+  { label: "THE PLAN", href: "#the-plan" },
   { label: "COMMAND", href: "#contact" },
 ];
 
@@ -26,7 +28,7 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      const sections = ["hero", "about", "skills", "projects", "experience", "approach", "contact"];
+      const sections = ["hero", "about", "skills", "projects", "experience", "certifications", "the-plan", "approach", "contact"];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -78,6 +80,8 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  onMouseEnter={() => heistAudio.playBlip()}
+                  onClick={() => heistAudio.playClick()}
                   className={`relative px-3.5 py-1.5 text-xs font-technical font-bold tracking-wider rounded-lg transition-all duration-300 ${
                     isActive
                       ? "text-white"

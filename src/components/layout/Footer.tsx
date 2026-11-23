@@ -101,13 +101,23 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="#certifications" className="hover:text-white transition-colors">
+                  // 05. SECURITY CLEARANCE
+                </Link>
+              </li>
+              <li>
+                <Link href="#the-plan" className="hover:text-white transition-colors">
+                  // 06. THE PROFESSOR&apos;S PLAN
+                </Link>
+              </li>
+              <li>
                 <Link href="#approach" className="hover:text-white transition-colors">
-                  // 05. ENGINEERING APPROACH
+                  // 07. ENGINEERING APPROACH
                 </Link>
               </li>
               <li>
                 <Link href="#contact" className="hover:text-white transition-colors">
-                  // 06. COMMAND CENTER
+                  // 08. COMMAND CENTER
                 </Link>
               </li>
             </ul>

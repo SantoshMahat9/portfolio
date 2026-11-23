@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -11,6 +11,23 @@ export function FloatingObjects() {
   const icosaRef = useRef<THREE.Mesh>(null);
   const octaRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
+  const shardsRef = useRef<THREE.InstancedMesh>(null);
+
+  // Generate 24 floating bullion / encrypted data shards in perimeter
+  const shardCount = 24;
+  const shardData = useMemo(() => {
+    const temp = [];
+    for (let i = 0; i < shardCount; i++) {
+      // Keep perimeter positions (x < -4.5 or x > 4.5) to never overlap central hero content
+      const side = i % 2 === 0 ? 1 : -1;
+      const x = side * (4.8 + Math.random() * 2.5);
+      const y = (Math.random() - 0.5) * 6;
+      const z = (Math.random() - 0.5) * 3 - 1;
+      const rotSpeed = (Math.random() + 0.2) * 0.8;
+      temp.push({ x, y, z, rotSpeed });
+    }
+    return temp;
+  }, []);
 
   useFrame((state, delta) => {
     // Subtle mouse parallax on the whole floating group
@@ -44,6 +61,28 @@ export function FloatingObjects() {
     if (octaRef.current) {
       octaRef.current.rotation.x += delta * 0.45;
       octaRef.current.rotation.y -= delta * 0.3;
+    }
+
+    // Animate shards
+    if (shardsRef.current) {
+      const dummy = new THREE.Object3D();
+      const time = state.clock.getElapsedTime();
+      shardData.forEach((s, i) => {
+        dummy.position.set(
+          s.x,
+          s.y + Math.sin(time * 0.8 + i) * 0.25,
+          s.z + Math.cos(time * 0.6 + i) * 0.15
+        );
+        dummy.rotation.set(
+          time * s.rotSpeed * 0.5,
+          time * s.rotSpeed * 0.7,
+          time * s.rotSpeed * 0.3
+        );
+        dummy.scale.setScalar(0.08 + (i % 3) * 0.04);
+        dummy.updateMatrix();
+        shardsRef.current?.setMatrixAt(i, dummy.matrix);
+      });
+      shardsRef.current.instanceMatrix.needsUpdate = true;
     }
   });
 
@@ -104,6 +143,18 @@ export function FloatingObjects() {
           />
         </mesh>
       </Float>
+
+      {/* Perimeter Shards / Bullion Instanced Mesh */}
+      <instancedMesh ref={shardsRef} args={[undefined, undefined, shardCount]}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial
+          color="#ffd700"
+          metalness={0.95}
+          roughness={0.1}
+          emissive="#720D12"
+          emissiveIntensity={0.2}
+        />
+      </instancedMesh>
 
       {/* Subtle Background Red Target Rings in deep z space */}
       <mesh position={[0, 0, -5]} rotation={[-Math.PI / 3.5, 0, 0]}>

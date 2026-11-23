@@ -18,7 +18,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-heist-black film-grain"
+      className="relative min-h-[calc(100vh-6rem)] w-full flex flex-col justify-between pt-6 sm:pt-8 pb-12 overflow-hidden bg-heist-black film-grain"
     >
       {/* 3D Floating Objects Canvas (Peripheral ambient space) */}
       <HeroScene />

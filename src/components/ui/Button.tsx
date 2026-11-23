@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
+import { heistAudio } from "@/lib/audioEngine";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost";
@@ -62,6 +63,8 @@ export function Button({
           href={href}
           target={href.startsWith("http") || href.endsWith(".pdf") ? "_blank" : undefined}
           rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          onMouseEnter={() => heistAudio.playBlip()}
+          onClick={() => heistAudio.playClick()}
           className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
         >
           {content}
@@ -69,7 +72,12 @@ export function Button({
       );
     }
     return (
-      <Link href={href} className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}>
+      <Link
+        href={href}
+        onMouseEnter={() => heistAudio.playBlip()}
+        onClick={() => heistAudio.playClick()}
+        className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
+      >
         {content}
       </Link>
     );
@@ -77,6 +85,11 @@ export function Button({
 
   return (
     <button
+      onMouseEnter={() => heistAudio.playBlip()}
+      onClick={(e) => {
+        heistAudio.playClick();
+        props.onClick?.(e);
+      }}
       className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
       {...props}
     >
