@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1211"/>
+      <stop offset="50%" stop-color="#120D0C"/>
+      <stop offset="100%" stop-color="#0B0808"/>
+    </linearGradient>
+    <linearGradient id="orangeFlame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4D1C"/>
+      <stop offset="100%" stop-color="#E93616"/>
+    </linearGradient>
+    <linearGradient id="yellowFlame" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFC247"/>
+      <stop offset="100%" stop-color="#FF4D1C"/>
+    </linearGradient>
+    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgGrad2)"/>
+
+  <!-- Radial fiery aura -->
+  <circle cx="600" cy="380" r="300" fill="#FF4D1C" opacity="0.1" filter="url(#glow2)"/>
+
+  <!-- Financial Dashboard Container -->
+  <rect x="180" y="140" width="840" height="500" rx="24" fill="#1C1615" stroke="#FF4D1C" stroke-width="1.5" stroke-opacity="0.35"/>
+  
+  <!-- Header Bar -->
+  <rect x="180" y="140" width="840" height="64" rx="24" fill="#241B1A"/>
+  <circle cx="220" cy="172" r="6" fill="#FF4D1C"/>
+  <circle cx="240" cy="172" r="6" fill="#FFC247"/>
+  <circle cx="260" cy="172" r="6" fill="#555"/>
+  <text x="300" y="177" fill="#E6E6E6" font-family="sans-serif" font-weight="bold" font-size="14" letter-spacing="1">PERSONAL EXPENSE TRACKER // .NET 8.0 &amp; SQL ENGINE</text>
+  <rect x="880" y="158" width="110" height="28" rx="14" fill="#FF4D1C" fill-opacity="0.2"/>
+  <text x="906" y="176" fill="#FF4D1C" font-family="monospace" font-weight="bold" font-size="12">KANTASCRYPT</text>
+
+  <!-- Metric Cards -->
+  <g transform="translate(220, 230)">
+    <!-- Balance Card -->
+    <rect width="230" height="110" rx="16" fill="#241B19" stroke="#FF4D1C" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="20" y="36" fill="#A3A3A3" font-family="sans-serif" font-size="12" letter-spacing="1">TOTAL BALANCE</text>
+    <text x="20" y="74" fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold">₹84,250.00</text>
+    <text x="20" y="96" fill="#FFC247" font-family="monospace" font-size="11">+18.4% this cycle</text>
+
+    <!-- Income Card -->
+    <rect x="260" width="230" height="110" rx="16" fill="#241B19" stroke="#332422" stroke-width="1"/>
+    <text x="280" y="36" fill="#A3A3A3" font-family="sans-serif" font-size="12" letter-spacing="1">MONTHLY INFLOW</text>
+    <text x="280" y="74" fill="#25D366" font-family="sans-serif" font-size="28" font-weight="bold">+₹45,000</text>
+    <text x="280" y="96" fill="#718B77" font-family="monospace" font-size="11">SQL Stored Proc Executed</text>
+
+    <!-- Expense Card -->
+    <rect x="520" width="240" height="110" rx="16" fill="#241B19" stroke="#332422" stroke-width="1"/>
+    <text x="540" y="36" fill="#A3A3A3" font-family="sans-serif" font-size="12" letter-spacing="1">MONTHLY EXPENSES</text>
+    <text x="540" y="74" fill="#FF4D1C" font-family="sans-serif" font-size="28" font-weight="bold">-₹21,340</text>
+    <text x="540" y="96" fill="#FF4D1C" font-family="monospace" font-size="11">Categorized in 6 Buckets</text>
+  </g>
+
+  <!-- Interactive Data Chart / Histogram Bars -->
+  <g transform="translate(220, 370)">
+    <rect width="760" height="140" rx="16" fill="#181211" stroke="#312220" stroke-width="1"/>
+    
+    <!-- Bars representing daily transactions -->
+    <rect x="50" y="70" width="34" height="50" rx="6" fill="#FF4D1C" opacity="0.6"/>
+    <rect x="110" y="40" width="34" height="80" rx="6" fill="#FF4D1C" opacity="0.85"/>
+    <rect x="170" y="85" width="34" height="35" rx="6" fill="#FFC247" opacity="0.8"/>
+    <rect x="230" y="30" width="34" height="90" rx="6" fill="url(#orangeFlame)"/>
+    <rect x="290" y="55" width="34" height="65" rx="6" fill="#FF4D1C" opacity="0.7"/>
+    <rect x="350" y="20" width="34" height="100" rx="6" fill="url(#yellowFlame)"/>
+    <rect x="410" y="65" width="34" height="55" rx="6" fill="#FF4D1C" opacity="0.8"/>
+    <rect x="470" y="45" width="34" height="75" rx="6" fill="#FF4D1C" opacity="0.9"/>
+    <rect x="530" y="80" width="34" height="40" rx="6" fill="#FFC247" opacity="0.7"/>
+    <rect x="590" y="35" width="34" height="85" rx="6" fill="url(#orangeFlame)"/>
+    <rect x="650" y="15" width="34" height="105" rx="6" fill="#FFC247"/>
+
+    <!-- Sparkline overlay -->
+    <path d="M 67 70 Q 127 30 187 85 T 307 55 T 427 60 T 547 75 T 667 15" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.9"/>
+  </g>
+
+  <!-- SQL Query preview bar -->
+  <g transform="translate(220, 530)">
+    <rect width="760" height="80" rx="14" fill="#0E0A0A" stroke="#2B1A18" stroke-width="1"/>
+    <text x="24" y="32" fill="#FFC247" font-family="monospace" font-size="12">SELECT Category, SUM(Amount) AS Total FROM Transactions WHERE UserID = @UID GROUP BY Category;</text>
+    <text x="24" y="58" fill="#A3A3A3" font-family="monospace" font-size="12">// .NET Controller: return Ok(await _transactionRepo.GetSpendingSummaryAsync(userId));</text>
+  </g>
+
+  <!-- Titles -->
+  <text x="600" y="700" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="28" letter-spacing="1">PERSONAL EXPENSE TRACKER</text>
+  <text x="600" y="730" text-anchor="middle" fill="#FF4D1C" font-family="monospace" font-size="14" letter-spacing="3">.NET • SQL RELATIONAL PERSISTENCE • C# • CASH FLOW ANALYTICS</text>
+</svg>

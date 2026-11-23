@@ -1,0 +1,50 @@
+SANTOSH SANJEEV MAHATO
+Full Stack Developer & Computer Engineering Student
+Email: santoshkumarmahato284@gmail.com | Phone: +91 83292 24214
+Location: Boisar, Maharashtra, India
+GitHub: https://github.com/SantoshMahat9 | LinkedIn: https://linkedin.com/in/santoshmah
+
+===================================================================
+SUMMARY
+===================================================================
+Passionate Computer Engineering undergraduate at St. John College of Engineering and Management (University of Mumbai, 2023–2027) with hands-on experience in full-stack web development, RESTful API design, database schemas, and modern software architectures. Proven track record through internships and technical certifications.
+
+===================================================================
+EDUCATION
+===================================================================
+Bachelor of Technology (B.Tech) — Computer Engineering
+St. John College of Engineering and Management, Palghar (University of Mumbai)
+Duration: 2023 – 2027 | Current CGPA: 6.5
+
+===================================================================
+EXPERIENCE
+===================================================================
+1. Acelia Technologies — Full Stack Developer Intern (Upcoming: 1 December 2026, Hybrid)
+   - Pre-placement offer received during engineering studies.
+   - Slated to engineer full stack components and scalable application features.
+
+2. Kantascrypt — Intern Developer (March 2024 – April 2024, Onsite)
+   - Collaborated with engineering peers to build a Personal Expense Tracker.
+   - Structured and maintained relational SQL databases.
+   - Engineered backend business logic with .NET / C#.
+   - Conducted debugging sessions and peer code reviews in iterative sprints.
+
+===================================================================
+TECHNICAL TOOLKIT
+===================================================================
+- Frontend: JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Angular
+- Backend: .NET, C#, Node.js, Express
+- Databases: SQL, MySQL, MongoDB
+- Languages: Python, C++, C, JavaScript
+- Tools & Practices: Git, GitHub, REST APIs, Agile, Scrum, Iterative Development
+
+===================================================================
+CERTIFICATIONS & ACHIEVEMENTS
+===================================================================
+- LLM for Young Developers (Foundational) — AICTE, INDIAai, Meta, Nasscom FutureSkills Prime (Feb 2026)
+- Angular API Development — SJCEM × Kantascrypt (Nov 2025)
+- Metaverse Training — SJCEM × IOFT (Nov 2025)
+- Metaverse Workshop — IOFT, Ministry of MSME (Nov 2025)
+- Database and SQL — Infosys Springboard (Oct 2024)
+- Technical Paper Presentation — Anveshnam 2024, SJCEM (March 2024)
+- AI Skills Passport — EY & Microsoft
