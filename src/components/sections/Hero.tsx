@@ -84,7 +84,11 @@ export function Hero() {
               </span>
             </div>
 
-            <p className="font-syne text-xl sm:text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-brand-secondary">
+            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-brand-yellow tracking-tight">
+              Building Digital Experiences That Matter.
+            </h2>
+
+            <p className="font-mono-code text-xs sm:text-sm text-brand-yellow uppercase tracking-widest font-semibold">
               &ldquo;{profileData.secondaryHeadline}&rdquo;
             </p>
 

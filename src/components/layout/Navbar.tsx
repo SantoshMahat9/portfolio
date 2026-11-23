@@ -2,21 +2,23 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { profileData } from "@/data/profile";
 import { Menu, X, ArrowUpRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const NAV_ITEMS = [
-  { label: "HOME", href: "#hero" },
-  { label: "WORK", href: "#work" },
-  { label: "ABOUT", href: "#about" },
-  { label: "EXPERIENCE", href: "#experience" },
-  { label: "TOOLKIT", href: "#toolkit" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", hash: "#hero", path: "/" },
+  { label: "WORK", hash: "#work", path: "/projects" },
+  { label: "ABOUT", hash: "#about", path: "/about" },
+  { label: "EXPERIENCE", hash: "#experience", path: "/experience" },
+  { label: "TOOLKIT", hash: "#toolkit", path: "/skills" },
+  { label: "CONTACT", hash: "#contact", path: "/contact" },
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -68,11 +70,14 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-brand-surface/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.replace("#", "");
+              const targetHref = pathname === "/" ? item.hash : `/${item.hash}`;
+              const isActive =
+                pathname === item.path ||
+                (pathname === "/" && activeSection === item.hash.replace("#", ""));
               return (
                 <Link
                   key={item.label}
-                  href={item.href}
+                  href={targetHref}
                   className={`relative px-4 py-1.5 text-xs font-mono-code font-bold tracking-wider rounded-full transition-all duration-300 ${
                     isActive
                       ? "text-brand-yellow"
@@ -135,17 +140,20 @@ export function Navbar() {
             className="fixed inset-x-0 top-[70px] z-30 bg-brand-dark/95 backdrop-blur-2xl border-b border-white/15 p-6 md:hidden shadow-2xl"
           >
             <nav className="flex flex-col space-y-3">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-2xl bg-white/5 hover:bg-brand-orange/20 text-sm font-mono-code font-bold tracking-wider text-white hover:text-brand-yellow transition-all flex items-center justify-between"
-                >
-                  <span>{item.label}</span>
-                  <ArrowUpRight className="w-4 h-4 text-brand-orange" />
-                </Link>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const targetHref = pathname === "/" ? item.hash : `/${item.hash}`;
+                return (
+                  <Link
+                    key={item.label}
+                    href={targetHref}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-2xl bg-white/5 hover:bg-brand-orange/20 text-sm font-mono-code font-bold tracking-wider text-white hover:text-brand-yellow transition-all flex items-center justify-between"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="w-4 h-4 text-brand-orange" />
+                  </Link>
+                );
+              })}
 
               <div className="pt-4 flex flex-col gap-3">
                 <Button
