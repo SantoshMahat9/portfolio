@@ -13,13 +13,30 @@ export interface ExperienceItem {
 
 export const experienceData: ExperienceItem[] = [
   {
+    id: "kantascrypt",
+    role: "Intern Developer",
+    company: "Kantascrypt (Onsite)",
+    duration: "Mar – Apr 2024",
+    mode: "Onsite",
+    isUpcoming: false,
+    statusBadge: "MISSION ACCOMPLISHED",
+    scopeSummary: "Collaborated in an onsite team of interns to engineer a production Personal Expense Tracker application.",
+    responsibilities: [
+      "Collaborated in a team of interns to build a Personal Expense Tracker web application, working in short iterations with shared tasks and regular progress check-ins.",
+      "Designed and managed the SQL database for personal finance data.",
+      "Developed backend logic in .NET to process user data.",
+      "Took part in debugging and peer code reviews to improve application performance and code quality.",
+    ],
+    technologies: [".NET", "SQL", "C#", "Agile Sprints", "Code Reviews"],
+  },
+  {
     id: "acelia-technologies",
     role: "Full Stack Developer Intern",
     company: "Acelia Technologies",
     duration: "Upcoming · Joining 1 December 2026",
     mode: "Hybrid",
     isUpcoming: true,
-    statusBadge: "MISSION OFFERED / CONFIRMED FOR DEC 2026",
+    statusBadge: "CONFIRMED FUTURE MISSION",
     scopeSummary: "Pre-placement internship offer confirmed during undergraduate engineering study at St. John College of Engineering.",
     responsibilities: [
       "Scheduled to collaborate on full-stack application development and scalable feature engineering.",
@@ -27,23 +44,5 @@ export const experienceData: ExperienceItem[] = [
       "Direct continuation of academic and practical full-stack capabilities.",
     ],
     technologies: ["Full Stack Architecture", "API Integration", "Web Engineering"],
-  },
-  {
-    id: "kantascrypt",
-    role: "Full Stack Developer Intern",
-    company: "Kantascrypt",
-    duration: "March 2024 – April 2024",
-    mode: "Onsite",
-    isUpcoming: false,
-    statusBadge: "MISSION COMPLETED",
-    scopeSummary: "Engineered core backend and relational schemas for a production Personal Expense Tracker.",
-    responsibilities: [
-      "Collaborated in a team of engineering interns to design and develop the Personal Expense Tracker application.",
-      "Designed, maintained, and optimized relational SQL database schemas for personal financial records.",
-      "Implemented core backend logic and service endpoints using .NET / C#.",
-      "Engaged in active debugging, issue resolution, and iterative peer code reviews.",
-      "Delivered functional features in short agile development sprints with scheduled progress check-ins.",
-    ],
-    technologies: [".NET", "SQL", "C#", "Database Schemas", "Agile Sprints"],
   },
 ];

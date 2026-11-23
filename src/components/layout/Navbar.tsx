@@ -7,6 +7,7 @@ import { profileData } from "@/data/profile";
 import { Menu, X, ArrowUpRight, FileText, Radio } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { heistAudio } from "@/lib/audioEngine";
+import { ResumeModal } from "@/components/ui/ResumeModal";
 
 const NAV_ITEMS = [
   { label: "OVERVIEW", href: "#hero" },
@@ -22,6 +23,7 @@ const NAV_ITEMS = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
@@ -106,8 +108,10 @@ export function Navbar() {
             <Button
               variant="outline"
               size="sm"
-              href={profileData.links.resume}
-              isExternal
+              onClick={() => {
+                heistAudio.playClick();
+                setIsResumeOpen(true);
+              }}
               icon={<FileText className="w-3.5 h-3.5 text-heist-red" />}
             >
               Resume Dossier
@@ -173,8 +177,10 @@ export function Navbar() {
                 <Button
                   variant="secondary"
                   size="md"
-                  href={profileData.links.resume}
-                  isExternal
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setIsResumeOpen(true);
+                  }}
                   icon={<FileText className="w-4 h-4 text-heist-red" />}
                 >
                   Download Resume
@@ -184,6 +190,9 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Interactive Resume Dossier Modal */}
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </>
   );
 }

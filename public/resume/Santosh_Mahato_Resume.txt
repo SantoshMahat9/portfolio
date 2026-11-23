@@ -1,50 +1,52 @@
 SANTOSH SANJEEV MAHATO
-Full Stack Developer & Computer Engineering Student
-Email: santoshkumarmahato284@gmail.com
-Location: Boisar, Maharashtra, India
-GitHub: https://github.com/SantoshMahat9 | LinkedIn: https://linkedin.com/in/santoshmah
+8329224214 | santoshkumarmahato284@gmail.com | Boisar, Maharashtra
+linkedin.com/in/santoshmah | github.com/SantoshMahat9
 
-===================================================================
-SUMMARY
-===================================================================
-Passionate Computer Engineering undergraduate at St. John College of Engineering and Management (University of Mumbai, 2023–2027) with hands-on experience in full-stack web development, RESTful API design, database schemas, and modern software architectures. Proven track record through internships and technical certifications.
+CAREER OBJECTIVE
+Final-year Computer Engineering student (B.Tech, 2023–2027) with hands-on experience in full-stack web development using Angular, .NET, SQL, and MongoDB. Experienced in working in small teams with code reviews and iterative, incremental delivery, with a basic understanding of Agile and Scrum practices. Seeking a full-stack developer internship or entry-level role to build real-world web applications and grow as an engineer.
 
-===================================================================
-EDUCATION
-===================================================================
-Bachelor of Technology (B.Tech) — Computer Engineering
-St. John College of Engineering and Management, Palghar (University of Mumbai)
-Duration: 2023 – 2027 | Current CGPA: 6.5
+TECHNICAL SKILLS
+• Frontend: HTML, CSS, JavaScript, Angular
+• Backend & Database: .NET, Node.js, MongoDB, SQL / MySQL
+• Languages: C, C++, Python
+• Tools & Concepts: Git / GitHub, REST APIs, Debugging, Code Review
+• Methodologies: Basic understanding of Agile and Scrum (sprints, daily stand-ups, backlog, sprint review), iterative development, team collaboration
 
-===================================================================
 EXPERIENCE
-===================================================================
-1. Acelia Technologies — Full Stack Developer Intern (Upcoming: 1 December 2026, Hybrid)
-   - Pre-placement offer received during engineering studies.
-   - Slated to engineer full stack components and scalable application features.
+Intern Developer | Kantascrypt (Onsite) | Mar – Apr 2024
+• Collaborated in a team of interns to build a Personal Expense Tracker web application, working in short iterations with shared tasks and regular progress check-ins.
+• Designed and managed the SQL database for personal finance data.
+• Developed backend logic in .NET to process user data.
+• Took part in debugging and peer code reviews to improve application performance and code quality.
+Tech: .NET, SQL
 
-2. Kantascrypt — Intern Developer (March 2024 – April 2024, Onsite)
-   - Collaborated with engineering peers to build a Personal Expense Tracker.
-   - Structured and maintained relational SQL databases.
-   - Engineered backend business logic with .NET / C#.
-   - Conducted debugging sessions and peer code reviews in iterative sprints.
+PROJECTS
+API Integration & Automation — WhatsApp Chatbot | Personal Project | 2025
+• Designed and built an automated WhatsApp chatbot using the WhatsApp Business API and Python, replacing manual message handling with automated responses.
+• Integrated REST APIs to route incoming messages and trigger responses, reducing response time for repetitive queries.
+• Built and improved the bot incrementally, adding features in small iterations.
+Tech: WhatsApp Business API, Python, REST APIs
 
-===================================================================
-TECHNICAL TOOLKIT
-===================================================================
-- Frontend: JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Angular
-- Backend: .NET, C#, Node.js, Express
-- Databases: SQL, MySQL, MongoDB
-- Languages: Python, C++, C, JavaScript
-- Tools & Practices: Git, GitHub, REST APIs, Agile, Scrum, Iterative Development
+Personal Expense Tracker | .NET, SQL, HTML, CSS | 2024
+• Built a web application to log, categorize, and track daily income and expenses.
+• Implemented backend logic and data storage using .NET and SQL.
 
-===================================================================
-CERTIFICATIONS & ACHIEVEMENTS
-===================================================================
-- LLM for Young Developers (Foundational) — AICTE, INDIAai, Meta, Nasscom FutureSkills Prime (Feb 2026)
-- Angular API Development — SJCEM × Kantascrypt (Nov 2025)
-- Metaverse Training — SJCEM × IOFT (Nov 2025)
-- Metaverse Workshop — IOFT, Ministry of MSME (Nov 2025)
-- Database and SQL — Infosys Springboard (Oct 2024)
-- Technical Paper Presentation — Anveshnam 2024, SJCEM (March 2024)
-- AI Skills Passport — EY & Microsoft
+Web Development Projects (In Progress) | HTML, CSS, JavaScript, MongoDB | 2024 – Present
+• Building mini full-stack projects using MongoDB and Node.js, delivered in small, working increments.
+• Practising RESTful API design and integration.
+
+CERTIFICATIONS
+• LLM for Young Developers (Foundational) | AICTE, INDIAai, Meta, Nasscom FutureSkills Prime | Feb 2026
+• Angular API Development | SJCEM × Kantascrypt | Nov 2025
+• Metaverse Training | SJCEM × IOFT | Nov 2025
+• Metaverse Workshop | IOFT, Ministry of MSME | Nov 2025
+• Database and SQL | Infosys Springboard | Oct 2024
+• Technical Paper Presentation, Anveshnam 2024 | SJCEM | Mar 2024
+• AI Skills Passport | EY & Microsoft
+
+EDUCATION
+B.Tech, Computer Engineering | St. John College of Engineering and Management, Palghar | 2023 – 2027
+• University of Mumbai | Current CGPA: 6.5
+
+ADDITIONAL INFORMATION
+• Strengths: Teamwork, Problem Solving, Eagerness to Learn, Collaborating in Agile-style teams

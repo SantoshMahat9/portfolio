@@ -13,16 +13,25 @@ export const profileData = {
   heroHeadline: "THE MIND\nBEHIND THE CODE.",
   heroSupporting:
     "Turning complex ideas into meaningful digital experiences through creativity, technology, and precision.",
+  careerObjective:
+    "Final-year Computer Engineering student (B.Tech, 2023–2027) with hands-on experience in full-stack web development using Angular, .NET, SQL, and MongoDB. Experienced in working in small teams with code reviews and iterative, incremental delivery, with a basic understanding of Agile and Scrum practices. Seeking a full-stack developer internship or entry-level role to build real-world web applications and grow as an engineer.",
+  strengths: [
+    "Teamwork",
+    "Problem Solving",
+    "Eagerness to Learn",
+    "Collaborating in Agile-style teams",
+  ],
   education: {
-    degree: "Computer Engineering",
+    degree: "B.Tech, Computer Engineering",
     institution: "St. John College of Engineering and Management, Palghar",
     university: "University of Mumbai",
     duration: "2023 – 2027",
     cgpa: "6.5",
-    location: "Palghar, Maharashtra, India",
+    location: "Boisar, Maharashtra",
   },
   location: "Boisar, Maharashtra, India",
-  status: "Available for Strategic Opportunities",
+  phone: "8329224214",
+  status: "Seeking Full-Stack Internship / Entry-Level Roles",
   email: "santoshkumarmahato284@gmail.com",
   links: {
     github: "https://github.com/SantoshMahat9",
@@ -30,6 +39,7 @@ export const profileData = {
     instagram: "https://instagram.com/",
     email: "mailto:santoshkumarmahato284@gmail.com",
     resume: "/resume/Santosh_Mahato_Resume.pdf",
+    resumeTxt: "/resume/Santosh_Mahato_Resume.txt",
   },
   principles: [
     {

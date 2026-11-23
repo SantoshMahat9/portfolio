@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { profileData } from "@/data/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GraduationCap, Terminal, Code, Cpu, ShieldCheck, MapPin } from "lucide-react";
+import { GraduationCap, Terminal, Code, Cpu, ShieldCheck, MapPin, Target } from "lucide-react";
 
 export function About() {
   const pillars = [
@@ -64,11 +64,20 @@ export function About() {
                 <p>
                   I&apos;m <span className="text-white font-semibold">{profileData.fullName}</span>, a Computer Engineering student and aspiring Full Stack Developer passionate about building meaningful digital products.
                 </p>
-                <p>
-                  I enjoy transforming ideas into functional, beautiful, and user-focused web experiences.
-                </p>
+                
+                {/* Official Career Objective from Resume */}
+                <div className="p-4 rounded-xl bg-heist-red/10 border border-heist-red/30 space-y-1.5 my-3">
+                  <div className="flex items-center gap-2 text-[11px] font-technical text-heist-red font-bold uppercase tracking-wider">
+                    <Target className="w-3.5 h-3.5" />
+                    <span>CAREER OBJECTIVE</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-sans-body">
+                    {profileData.careerObjective}
+                  </p>
+                </div>
+
                 <p className="text-heist-muted">
-                  Through internships, academic projects, and independent development, I&apos;ve been continuously exploring modern technologies and improving my ability to solve real-world problems.
+                  Through internships at Kantascrypt, academic projects, and independent development, I&apos;ve been continuously exploring modern technologies and improving my ability to solve real-world problems.
                 </p>
               </div>
 

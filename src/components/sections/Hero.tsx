@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { profileData } from "@/data/profile";
 import { HeroPortrait } from "@/components/3d/HeroPortrait";
 import { Button } from "@/components/ui/Button";
+import { ResumeModal } from "@/components/ui/ResumeModal";
 import { ArrowDown, MapPin, Radio, Terminal, FileText, ArrowRight } from "lucide-react";
 
 // Dynamically load R3F Canvas to prevent SSR hydration mismatches
@@ -15,6 +16,8 @@ const HeroScene = dynamic(
 );
 
 export function Hero() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
   return (
     <section
       id="hero"
@@ -114,6 +117,15 @@ export function Hero() {
               >
                 LET&apos;S CONNECT
               </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setIsResumeOpen(true)}
+                icon={<FileText className="w-4 h-4 text-heist-red" />}
+              >
+                VIEW RESUME
+              </Button>
             </div>
           </motion.div>
 
@@ -158,6 +170,9 @@ export function Hero() {
           </a>
         </motion.div>
       </div>
+
+      {/* Interactive Resume Dossier Modal */}
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </section>
   );
 }
