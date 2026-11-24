@@ -151,7 +151,7 @@ export function TerminalBoot({ onComplete }: TerminalBootProps) {
                 </div>
 
                 <p className="text-[11px] text-neutral-600 font-mono-code">
-                  INTERACTIVE 3D & AUDIO PROTOCOLS ARMED • BOISAR, INDIA
+                  INTERACTIVE 3D PROTOCOLS ARMED • BOISAR, INDIA
                 </p>
               </motion.div>
             ) : (
@@ -212,7 +212,7 @@ export function TerminalBoot({ onComplete }: TerminalBootProps) {
               <span>•</span>
               <span>SECTOR: BOISAR // MUMBAI</span>
             </div>
-            <div>STATUS: DEFCON 1 // AUDIO & 3D HARDWARE ACCELERATED</div>
+            <div>STATUS: DEFCON 1 // 3D HARDWARE ACCELERATED</div>
           </div>
         </motion.div>
       )}
