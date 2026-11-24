@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { heistAudio } from "@/lib/audioEngine";
 import {
   ArrowUp,
   User,
@@ -12,20 +11,10 @@ import {
   GraduationCap,
   FileText,
   Mail,
-  Volume2,
-  VolumeX,
 } from "lucide-react";
 
 export function QuickDock() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-
-  useEffect(() => {
-    const unsub = heistAudio.subscribe((state) => {
-      setIsMuted(state.isMuted || !state.isPlaying);
-    });
-    return () => unsub();
-  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -43,7 +32,6 @@ export function QuickDock() {
   }, []);
 
   const scrollTo = (id: string) => {
-    heistAudio.playClick();
     if (id === "hero") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -97,7 +85,6 @@ export function QuickDock() {
                 onClick={() => scrollTo(item.id)}
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
-                onMouseEnter={() => heistAudio.playBlip()}
                 title={item.label}
                 aria-label={item.label}
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-heist-red/20 transition-all cursor-pointer"
@@ -106,28 +93,6 @@ export function QuickDock() {
               </motion.button>
             );
           })}
-
-          <div className="w-[1px] h-4 bg-white/15 mx-0.5" />
-
-          {/* Sound Toggle */}
-          <motion.button
-            onClick={() => heistAudio.toggleSound()}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            title={isMuted ? "Sound Off (Click to activate)" : "Sound On (Click to mute)"}
-            aria-label="Toggle Sound"
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${
-              !isMuted
-                ? "bg-heist-red/20 text-heist-red border border-heist-red/50 shadow-[0_0_10px_rgba(229,9,20,0.3)]"
-                : "text-neutral-500 hover:text-neutral-300"
-            }`}
-          >
-            {!isMuted ? (
-              <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse" />
-            ) : (
-              <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            )}
-          </motion.button>
         </motion.div>
       )}
     </AnimatePresence>
