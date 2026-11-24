@@ -36,7 +36,7 @@ export const profileData = {
   links: {
     github: "https://github.com/SantoshMahat9",
     linkedin: "https://linkedin.com/in/santoshmah",
-    instagram: "https://instagram.com/",
+    instagram: "https://www.instagram.com/_.santoshmahato_/",
     email: "mailto:santoshkumarmahato284@gmail.com",
     resume: "/resume/Santosh_Mahato_Resume.pdf",
     resumeTxt: "/resume/Santosh_Mahato_Resume.txt",

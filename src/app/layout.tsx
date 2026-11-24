@@ -79,6 +79,7 @@ export default function RootLayout({
     sameAs: [
       profileData.links.github,
       profileData.links.linkedin,
+      profileData.links.instagram,
     ],
   };
 
