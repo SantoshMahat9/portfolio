@@ -7,7 +7,7 @@ import { profileData } from "@/data/profile";
 import { HeroPortrait } from "@/components/3d/HeroPortrait";
 import { Button } from "@/components/ui/Button";
 import { ResumeModal } from "@/components/ui/ResumeModal";
-import { ArrowDown, MapPin, Radio, Terminal, FileText, ArrowRight } from "lucide-react";
+import { ArrowDown, MapPin, Radio, FileText, ArrowRight } from "lucide-react";
 
 // Dynamically load R3F Canvas to prevent SSR hydration mismatches
 const HeroScene = dynamic(
@@ -41,7 +41,7 @@ export function Hero() {
           <div className="flex items-center gap-2.5">
             <Radio className="w-3.5 h-3.5 text-heist-red animate-pulse" />
             <span className="text-heist-text font-bold tracking-wider">
-              OPERATION: SANTOSH MAHATO
+              OPERATIVE: {profileData.brandName}
             </span>
             <span className="hidden sm:inline text-heist-dim">|</span>
             <span className="hidden sm:inline text-heist-muted">ST. JOHN CE // MUMBAI UNIV.</span>
@@ -53,7 +53,7 @@ export function Hero() {
               <span>{profileData.location}</span>
             </span>
             <span className="hidden md:inline px-2 py-0.5 rounded bg-heist-red/10 border border-heist-red/30 text-heist-red font-bold text-[10px]">
-              AVAILABLE FOR STRATEGIC OPPORTUNITIES
+              AVAILABLE FOR FULL-STACK ROLES
             </span>
           </div>
         </motion.div>
@@ -75,14 +75,14 @@ export function Hero() {
               <span className="w-1.5 h-1.5 rounded-full bg-heist-red animate-ping" />
               <span>{profileData.role}</span>
               <span className="text-heist-dim">•</span>
-              <span className="text-heist-muted">{profileData.brandName}</span>
+              <span className="text-heist-muted">{profileData.education.institution}</span>
             </div>
 
             {/* Main Heading in Bebas Neue */}
-            <h1 className="font-bebas text-5xl sm:text-7xl md:text-8xl lg:text-[5.75rem] tracking-wide text-heist-text leading-[0.9] select-none">
-              THE MIND<br />
+            <h1 className="font-bebas text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] tracking-wide text-heist-text leading-[0.92] select-none">
+              FULL-STACK ARCHITECTURE.<br />
               <span className="text-heist-red drop-shadow-[0_0_35px_rgba(229,9,20,0.35)]">
-                BEHIND THE CODE.
+                MEASURED PRECISION.
               </span>
             </h1>
 
@@ -93,7 +93,7 @@ export function Hero() {
 
             {/* Personal Positioning Quote */}
             <div className="border-l-2 border-heist-red pl-4 py-1">
-              <p className="font-technical text-xs sm:text-sm text-heist-muted italic leading-relaxed">
+              <p className="font-technical text-xs sm:text-sm text-heist-muted leading-relaxed">
                 &ldquo;{profileData.tagline}&rdquo;
               </p>
             </div>
@@ -106,7 +106,7 @@ export function Hero() {
                 href="#projects"
                 showArrow
               >
-                EXPLORE MY WORK
+                EXPLORE OPERATIONS
               </Button>
 
               <Button
@@ -115,7 +115,7 @@ export function Hero() {
                 href="#contact"
                 icon={<ArrowRight className="w-4 h-4 text-heist-red" />}
               >
-                LET&apos;S CONNECT
+                INITIATE CONTACT
               </Button>
 
               <Button

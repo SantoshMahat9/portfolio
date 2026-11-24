@@ -5,7 +5,7 @@ import { projectsData } from "@/data/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Button } from "@/components/ui/Button";
-import { Github, ShieldCheck } from "lucide-react";
+import { Github, ShieldCheck, Code2 } from "lucide-react";
 import { profileData } from "@/data/profile";
 
 export function ProjectsSection() {
@@ -18,9 +18,9 @@ export function ProjectsSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
           <SectionHeading
             tag="MISSION DOSSIERS // 03"
-            title="PREVIOUS"
+            title="FEATURED"
             highlight="OPERATIONS."
-            subtitle="Real-world engineering missions, automated communication pipelines, and full-stack systems built with precision."
+            subtitle="Verified engineering projects spanning AI deceptive UI detection, enterprise relational financial ledgers, and API automation pipelines."
             className="mb-0"
           />
 
@@ -38,8 +38,8 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* 3-Column Tactical Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Balanced 2x2 Project Dossier Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projectsData.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
@@ -50,10 +50,10 @@ export function ProjectsSection() {
           <div className="space-y-1 text-center sm:text-left">
             <h4 className="font-bebas text-2xl text-white tracking-wide flex items-center justify-center sm:justify-start gap-2">
               <ShieldCheck className="w-5 h-5 text-heist-red" />
-              Verified Git Commits &amp; Transparent Engineering
+              Verified Git Repositories &amp; Transparent Engineering
             </h4>
             <p className="text-xs sm:text-sm text-heist-muted font-sans-body">
-              Every project reflects authentic code, real database schemas, and structured problem-solving.
+              Every operation links directly to its verified GitHub repository or documented enterprise internship dossier.
             </p>
           </div>
 

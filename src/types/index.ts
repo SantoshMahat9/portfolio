@@ -11,6 +11,8 @@ export interface Project {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
+  repoStatus?: string;
+  demoStatus?: string;
   image: string;
   accentColor: string;
 }
@@ -53,7 +55,9 @@ export interface Certification {
   title: string;
   issuer: string;
   date: string;
-  category: string;
+  category?: string;
   credentialNote?: string;
+  credentialUrl?: string;
+  skills?: string[];
   highlight?: boolean;
 }

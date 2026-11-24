@@ -19,6 +19,8 @@ import {
   AlertCircle,
   Clock,
   ShieldCheck,
+  RefreshCw,
+  ExternalLink,
 } from "lucide-react";
 
 interface FormState {
@@ -26,6 +28,7 @@ interface FormState {
   email: string;
   subject: string;
   message: string;
+  website?: string; // honeypot
 }
 
 interface FormErrors {
@@ -41,34 +44,51 @@ export function ContactSection() {
     email: "",
     subject: "",
     message: "",
+    website: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(profileData.email);
     setCopiedEmail(true);
+    heistAudio.playClick();
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
-    if (!formData.name.trim()) {
-      newErrors.name = "Identification required: please enter your name.";
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedSubject = formData.subject.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName) {
+      newErrors.name = "Operative name is required.";
+    } else if (trimmedName.length < 2) {
+      newErrors.name = "Operative name must be at least 2 characters.";
     }
-    if (!formData.email.trim()) {
-      newErrors.email = "Communication channel required: please enter your email.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+
+    if (!trimmedEmail) {
+      newErrors.email = "Communication email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
       newErrors.email = "Invalid format: please enter a valid email address.";
     }
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subject line required.";
+
+    if (!trimmedSubject) {
+      newErrors.subject = "Mission subject is required.";
+    } else if (trimmedSubject.length < 3) {
+      newErrors.subject = "Subject must be at least 3 characters.";
     }
-    if (!formData.message.trim() || formData.message.trim().length < 10) {
-      newErrors.message = "Message too brief: please enter at least 10 characters.";
+
+    if (!trimmedMessage) {
+      newErrors.message = "Transmission payload is required.";
+    } else if (trimmedMessage.length < 10) {
+      newErrors.message = "Payload too brief: please enter at least 10 characters.";
     }
 
     setErrors(newErrors);
@@ -77,6 +97,8 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
     if (!validate()) {
       heistAudio.playClick();
       return;
@@ -85,45 +107,72 @@ export function ContactSection() {
     setIsSubmitting(true);
     heistAudio.playClick();
 
-    // Send real transmission via FormSubmit to santoshkumarmahato284@gmail.com
+    // 10-second client timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
-      const response = await fetch("https://formsubmit.co/ajax/santoshkumarmahato284@gmail.com", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          _subject: `[HEIST TRANSMISSION] ${formData.subject} - from ${formData.name}`,
-          subject: formData.subject,
-          message: formData.message,
-          _template: "table",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+          website: formData.website, // honeypot
         }),
+        signal: controller.signal,
       });
 
-      if (!response.ok) {
-        console.warn("FormSubmit relay status:", response.status);
+      clearTimeout(timeoutId);
+
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        data = { success: false, error: "Server returned non-JSON response." };
       }
-    } catch (err) {
-      console.warn("Contact form relay network exception:", err);
-    }
 
-    try {
-      confetti({
-        particleCount: 75,
-        spread: 65,
-        origin: { y: 0.6 },
-        colors: ["#E50914", "#720D12", "#FFFFFF"],
-      });
-      heistAudio.playAccessGranted();
-    } catch {
-      // safe fallback
-    }
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || `Transmission error (HTTP ${response.status}).`);
+      }
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      // Success ONLY on valid server response
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ["#E50914", "#720D12", "#FFFFFF"],
+        });
+        heistAudio.playAccessGranted();
+      } catch {
+        // safe fallback
+      }
+
+      setIsSubmitted(true);
+      setSubmitError(null);
+    } catch (err: unknown) {
+      clearTimeout(timeoutId);
+      heistAudio.playClick();
+
+      let errorMessage = "Network failure: Unable to transmit payload. Please verify your connection or use direct email.";
+      if (err instanceof Error) {
+        if (err.name === "AbortError") {
+          errorMessage = "Transmission timed out after 10 seconds. Please retry or dispatch directly via your email client.";
+        } else {
+          errorMessage = err.message;
+        }
+      }
+
+      setSubmitError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -136,7 +185,7 @@ export function ContactSection() {
           tag="SECURE COMMS // 06"
           title="READY FOR"
           highlight="THE NEXT OPERATION?"
-          subtitle="Have an idea, an opportunity, or an interesting project? Let's make something extraordinary."
+          subtitle="Have an engineering opportunity, a full-stack project, or a technical inquiry? Send an encrypted transmission or establish direct contact."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mt-8">
@@ -158,83 +207,68 @@ export function ContactSection() {
                   Establish Contact
                 </h3>
                 <p className="text-xs sm:text-sm text-heist-muted leading-relaxed font-sans-body mt-2">
-                  Reach out directly via email or connect through LinkedIn and GitHub. I respond promptly to inquiries.
+                  Seeking full-stack developer internships and entry-level engineering roles. Reach out via email, LinkedIn, or the encrypted form.
                 </p>
               </div>
 
-              {/* Email Direct Item */}
-              <div className="p-4 rounded-xl bg-black/50 border border-heist-border flex items-center justify-between group hover:border-heist-red/50 transition-colors">
-                <a
-                  href={profileData.links.email}
-                  className="flex items-center gap-3 overflow-hidden"
-                >
-                  <div className="p-2.5 rounded-lg bg-heist-red/15 text-heist-red shrink-0">
-                    <Mail className="w-5 h-5" />
+              {/* Email Card with 1-Click Copy */}
+              <div className="p-4 rounded-xl bg-black/60 border border-white/10 flex items-center justify-between gap-3 group">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2.5 rounded-lg bg-heist-red/10 border border-heist-red/20 text-heist-red shrink-0">
+                    <Mail className="w-4 h-4" />
                   </div>
-                  <div className="truncate">
-                    <p className="text-[10px] text-heist-muted font-technical uppercase">Primary Email</p>
-                    <p className="text-xs sm:text-sm font-technical font-bold text-white truncate group-hover:text-heist-red transition-colors">
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-technical text-heist-muted uppercase tracking-wider block">
+                      Direct Email
+                    </span>
+                    <a
+                      href={profileData.links.email}
+                      className="text-xs sm:text-sm font-technical text-white hover:text-heist-red transition-colors truncate block"
+                    >
                       {profileData.email}
-                    </p>
+                    </a>
                   </div>
-                </a>
+                </div>
 
                 <button
+                  type="button"
                   onClick={copyEmail}
-                  className="p-2 rounded-md bg-white/5 hover:bg-white/15 text-heist-muted hover:text-white transition-colors shrink-0 ml-2"
+                  className="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors border border-white/10 shrink-0"
+                  aria-label="Copy email address"
                   title="Copy email to clipboard"
-                  aria-label="Copy email"
                 >
                   {copiedEmail ? (
-                    <Check className="w-4 h-4 text-heist-red" />
+                    <Check className="w-4 h-4 text-emerald-400" />
                   ) : (
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-4 h-4 text-heist-muted group-hover:text-white" />
                   )}
                 </button>
               </div>
 
-              {/* Status / Availability Item */}
-              <div className="p-4 rounded-xl bg-black/50 border border-heist-border flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-white/5 text-heist-red shrink-0">
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-heist-red opacity-75" />
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-heist-red" />
-                  </span>
+              {/* Base Location */}
+              <div className="p-4 rounded-xl bg-black/60 border border-white/10 flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-heist-red/10 border border-heist-red/20 text-heist-red shrink-0">
+                  <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-heist-muted font-technical uppercase">Operational Status</p>
-                  <p className="text-xs sm:text-sm font-technical font-bold text-white">
-                    Available for Strategic SDE / Internships
-                  </p>
+                  <span className="text-[10px] font-technical text-heist-muted uppercase tracking-wider block">
+                    Operating Base
+                  </span>
+                  <span className="text-xs sm:text-sm font-technical text-white">
+                    {profileData.location}
+                  </span>
                 </div>
               </div>
 
-              {/* Base Location */}
-              <div className="p-4 rounded-xl bg-black/50 border border-heist-border flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-white/5 text-heist-red shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-heist-muted font-technical uppercase">Base Coordinates</p>
-                  <p className="text-xs sm:text-sm font-technical font-bold text-white">
-                    {profileData.location}
-                  </p>
-                </div>
+              {/* Response Time SLA */}
+              <div className="p-4 rounded-xl bg-heist-red/10 border border-heist-red/25 flex items-center gap-3 text-xs font-technical text-neutral-300">
+                <Clock className="w-4 h-4 text-heist-red shrink-0" />
+                <span>Encrypted communications logged and reviewed within 24 hours.</span>
               </div>
             </div>
 
-            {/* Social Grid (LinkedIn, GitHub, Instagram) */}
+            {/* Social Channels */}
             <div className="grid grid-cols-3 gap-3">
-              <a
-                href={profileData.links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-heist-dark border border-heist-border hover:border-heist-red/50 transition-all text-center group flex flex-col items-center gap-2"
-              >
-                <Linkedin className="w-5 h-5 text-heist-muted group-hover:text-heist-red transition-colors" />
-                <span className="text-[11px] font-technical text-white font-bold">LinkedIn</span>
-              </a>
-
               <a
                 href={profileData.links.github}
                 target="_blank"
@@ -243,6 +277,16 @@ export function ContactSection() {
               >
                 <Github className="w-5 h-5 text-heist-muted group-hover:text-heist-red transition-colors" />
                 <span className="text-[11px] font-technical text-white font-bold">GitHub</span>
+              </a>
+
+              <a
+                href={profileData.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-xl bg-heist-dark border border-heist-border hover:border-heist-red/50 transition-all text-center group flex flex-col items-center gap-2"
+              >
+                <Linkedin className="w-5 h-5 text-heist-muted group-hover:text-heist-red transition-colors" />
+                <span className="text-[11px] font-technical text-white font-bold">LinkedIn</span>
               </a>
 
               <a
@@ -267,7 +311,7 @@ export function ContactSection() {
           >
             <div className="p-8 sm:p-10 rounded-2xl bg-heist-dark border border-heist-border shadow-2xl relative">
               {isSubmitted ? (
-                <div className="py-12 text-center space-y-4">
+                <div className="py-12 text-center space-y-4" role="status" aria-live="polite">
                   <div className="w-16 h-16 rounded-full bg-heist-red/20 border border-heist-red flex items-center justify-center text-heist-red mx-auto">
                     <ShieldCheck className="w-8 h-8" />
                   </div>
@@ -275,15 +319,16 @@ export function ContactSection() {
                     DISPATCH TRANSMITTED.
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-300 font-sans-body max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your message has been safely logged. Santosh will respond to your transmission at <span className="text-heist-red font-technical">{formData.email}</span> shortly.
+                    Thank you, <span className="text-white font-bold">{formData.name}</span>. Your transmission has been verified and securely routed. Santosh will reply to <span className="text-heist-red font-technical">{formData.email}</span> within 24 hours.
                   </p>
-                  <div className="pt-4 flex justify-center gap-4">
+                  <div className="pt-4 flex flex-wrap justify-center gap-4">
                     <Button
                       variant="secondary"
                       size="sm"
                       onClick={() => {
                         setIsSubmitted(false);
-                        setFormData({ name: "", email: "", subject: "", message: "" });
+                        setFormData({ name: "", email: "", subject: "", message: "", website: "" });
+                        setSubmitError(null);
                       }}
                     >
                       Transmit Another
@@ -306,9 +351,65 @@ export function ContactSection() {
                       Encrypted Message Dispatch
                     </h3>
                     <span className="text-[10px] font-technical text-heist-red uppercase tracking-wider font-bold">
-                      AES-256 CHANNEL
+                      VERIFIED RELAY CHANNEL
                     </span>
                   </div>
+
+                  {/* Honeypot field (hidden from screen, trapped for spam bots) */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="website">Leave this field blank</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={formData.website || ""}
+                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  {/* High Visibility Error Notification Banner */}
+                  {submitError && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-xl bg-red-950/60 border border-red-500/50 text-red-200 text-xs font-sans-body space-y-3"
+                      role="alert"
+                      aria-live="assertive"
+                    >
+                      <div className="flex items-start gap-2.5">
+                        <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="font-technical font-bold text-red-300 uppercase tracking-wider text-[11px]">
+                            Transmission Interrupted
+                          </p>
+                          <p className="leading-relaxed">{submitError}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 pt-1 border-t border-red-500/20">
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-400/40 text-[11px] font-technical font-bold text-white transition-colors"
+                        >
+                          <RefreshCw className={`w-3 h-3 ${isSubmitting ? "animate-spin" : ""}`} />
+                          Retry Dispatch
+                        </button>
+
+                        <a
+                          href={`mailto:${profileData.email}?subject=${encodeURIComponent(
+                            formData.subject || "Mission Inquiry"
+                          )}&body=${encodeURIComponent(formData.message)}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-technical text-neutral-300 hover:text-white transition-colors"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          Open Email Client
+                        </a>
+                      </div>
+                    </motion.div>
+                  )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {/* Name */}
@@ -320,17 +421,23 @@ export function ContactSection() {
                         id="name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        disabled={isSubmitting}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: undefined });
+                        }}
                         placeholder="John Doe"
-                        className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors ${
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
+                        className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors disabled:opacity-50 ${
                           errors.name
                             ? "border-red-500 focus:border-red-400"
                             : "border-heist-border focus:border-heist-red"
                         }`}
                       />
                       {errors.name && (
-                        <p className="text-[11px] text-red-400 flex items-center gap-1 font-technical">
-                          <AlertCircle className="w-3 h-3" />
+                        <p id="name-error" className="text-[11px] text-red-400 flex items-center gap-1 font-technical" role="alert">
+                          <AlertCircle className="w-3 h-3 shrink-0" />
                           {errors.name}
                         </p>
                       )}
@@ -345,17 +452,23 @@ export function ContactSection() {
                         id="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        disabled={isSubmitting}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: undefined });
+                        }}
                         placeholder="john@example.com"
-                        className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors ${
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                        className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors disabled:opacity-50 ${
                           errors.email
                             ? "border-red-500 focus:border-red-400"
                             : "border-heist-border focus:border-heist-red"
                         }`}
                       />
                       {errors.email && (
-                        <p className="text-[11px] text-red-400 flex items-center gap-1 font-technical">
-                          <AlertCircle className="w-3 h-3" />
+                        <p id="email-error" className="text-[11px] text-red-400 flex items-center gap-1 font-technical" role="alert">
+                          <AlertCircle className="w-3 h-3 shrink-0" />
                           {errors.email}
                         </p>
                       )}
@@ -371,17 +484,23 @@ export function ContactSection() {
                       id="subject"
                       type="text"
                       value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="Collaboration / Project / Full Stack Role"
-                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors ${
+                      disabled={isSubmitting}
+                      onChange={(e) => {
+                        setFormData({ ...formData, subject: e.target.value });
+                        if (errors.subject) setErrors({ ...errors, subject: undefined });
+                      }}
+                      placeholder="Internship / Full Stack Role / Project Discussion"
+                      aria-invalid={!!errors.subject}
+                      aria-describedby={errors.subject ? "subject-error" : undefined}
+                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors disabled:opacity-50 ${
                         errors.subject
                           ? "border-red-500 focus:border-red-400"
                           : "border-heist-border focus:border-heist-red"
                       }`}
                     />
                     {errors.subject && (
-                      <p className="text-[11px] text-red-400 flex items-center gap-1 font-technical">
-                        <AlertCircle className="w-3 h-3" />
+                      <p id="subject-error" className="text-[11px] text-red-400 flex items-center gap-1 font-technical" role="alert">
+                        <AlertCircle className="w-3 h-3 shrink-0" />
                         {errors.subject}
                       </p>
                     )}
@@ -396,17 +515,23 @@ export function ContactSection() {
                       id="message"
                       rows={5}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Hi Santosh, I would like to discuss..."
-                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors resize-none ${
+                      disabled={isSubmitting}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: undefined });
+                      }}
+                      placeholder="Hi Santosh, I reviewed your portfolio and would like to discuss an opportunity..."
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                      className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none transition-colors resize-none disabled:opacity-50 ${
                         errors.message
                           ? "border-red-500 focus:border-red-400"
                           : "border-heist-border focus:border-heist-red"
                       }`}
                     />
                     {errors.message && (
-                      <p className="text-[11px] text-red-400 flex items-center gap-1 font-technical">
-                        <AlertCircle className="w-3 h-3" />
+                      <p id="message-error" className="text-[11px] text-red-400 flex items-center gap-1 font-technical" role="alert">
+                        <AlertCircle className="w-3 h-3 shrink-0" />
                         {errors.message}
                       </p>
                     )}
@@ -417,12 +542,13 @@ export function ContactSection() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 rounded-xl bg-heist-red hover:bg-[#c90812] text-white font-technical font-bold text-xs uppercase tracking-widest shadow-lg shadow-heist-red/30 hover:shadow-heist-red/50 transition-all flex items-center justify-center gap-2.5 disabled:opacity-60 disabled:cursor-not-allowed group"
+                      aria-busy={isSubmitting}
+                      className="w-full py-4 rounded-xl bg-heist-red hover:bg-[#c90812] text-white font-technical font-bold text-xs uppercase tracking-widest shadow-lg shadow-heist-red/30 hover:shadow-heist-red/50 transition-all flex items-center justify-center gap-2.5 disabled:opacity-60 disabled:cursor-not-allowed group focus:outline-none focus:ring-2 focus:ring-heist-red/50"
                     >
                       {isSubmitting ? (
                         <>
                           <Clock className="w-4 h-4 animate-spin" />
-                          <span>TRANSMITTING OPERATION DATA...</span>
+                          <span>TRANSMITTING TO DISPATCH SERVER...</span>
                         </>
                       ) : (
                         <>

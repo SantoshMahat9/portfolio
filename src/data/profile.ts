@@ -3,16 +3,16 @@ export const profileData = {
   formalName: "Santosh Sanjeev Mahato",
   brandName: "SANTOSH MAHATO",
   codeName: "PROFESSOR_DEV",
-  tagline: "I don't just write code. I create digital experiences that solve problems, connect people, and make technology meaningful.",
+  tagline: "Engineering resilient web systems and clean architectures from relational databases to modern client interfaces.",
   role: "Full Stack Developer",
   secondaryRoles: [
     "Computer Engineering Student",
-    "Creative Developer",
-    "Software Engineer",
+    "Full Stack Software Engineer",
+    "Backend & Systems Builder",
   ],
-  heroHeadline: "THE MIND\nBEHIND THE CODE.",
+  heroHeadline: "FULL-STACK ARCHITECTURE.\nMEASURED PRECISION.",
   heroSupporting:
-    "Turning complex ideas into meaningful digital experiences through creativity, technology, and precision.",
+    "Computer Engineering undergraduate at St. John College of Engineering (University of Mumbai) specializing in full-stack systems with .NET, React, SQL, and automated APIs.",
   careerObjective:
     "Final-year Computer Engineering student (B.Tech, 2023–2027) with hands-on experience in full-stack web development using Angular, .NET, SQL, and MongoDB. Experienced in working in small teams with code reviews and iterative, incremental delivery, with a basic understanding of Agile and Scrum practices. Seeking a full-stack developer internship or entry-level role to build real-world web applications and grow as an engineer.",
   strengths: [
@@ -23,7 +23,7 @@ export const profileData = {
   ],
   education: {
     degree: "B.Tech, Computer Engineering",
-    institution: "St. John College of Engineering and Management, Palghar",
+    institution: "St. John College of Engineering and Management",
     university: "University of Mumbai",
     duration: "2023 – 2027",
     cgpa: "6.5",
@@ -44,27 +44,27 @@ export const profileData = {
   principles: [
     {
       number: "01",
-      title: "THINK",
-      description: "Understand the problem before writing code.",
-      detail: "Deconstruct requirements, anticipate edge cases, and design database schemas and REST architectures before implementation.",
+      title: "ANALYZE",
+      description: "Deconstruct the core problem domain before writing code.",
+      detail: "Define data relationships, edge cases, and API contracts before touching the keyboard.",
     },
     {
       number: "02",
-      title: "DESIGN",
-      description: "Create meaningful and user-focused experiences.",
-      detail: "Build purposeful user interfaces with clear visual hierarchies, intuitive flows, and polished micro-interactions.",
+      title: "STRUCTURE",
+      description: "Build normalized, robust database and service layers.",
+      detail: "Ensure strict relational integrity, indexed queries, and defensive input validation.",
     },
     {
       number: "03",
-      title: "DEVELOP",
-      description: "Build scalable and reliable applications.",
-      detail: "Write clean, defensive, maintainable code with robust SQL integrity, modular endpoints, and modern component hierarchies.",
+      title: "DELIVER",
+      description: "Ship working software in small, verifiable iterations.",
+      detail: "Iterate with clear pull requests, structured code reviews, and reproducible builds.",
     },
     {
       number: "04",
-      title: "DELIVER",
-      description: "Turn ideas into polished digital products.",
-      detail: "Ship production-ready software through iterative sprints, thorough peer reviews, and automated verification.",
+      title: "POLISH",
+      description: "Prioritize user experience, speed, and accessibility.",
+      detail: "Maintain sub-second interaction speed, clear visual hierarchies, and reliable error states.",
     },
   ],
 };

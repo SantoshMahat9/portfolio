@@ -1,85 +1,102 @@
-export interface Project {
-  id: string;
-  codeName: string;
-  title: string;
-  category: string;
-  year: string;
-  status?: string;
-  description: string;
-  longDescription: string;
-  features: string[];
-  technologies: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  image: string;
-  accentColor: string;
-}
+import { Project } from "@/types";
 
 export const projectsData: Project[] = [
   {
-    id: "whatsapp-chatbot",
-    codeName: "OPERATION // DISPATCH",
-    title: "API Integration & Automation — WhatsApp Chatbot",
-    category: "Personal Project • API Integration & Automation",
-    year: "2025",
+    id: "darkpattern-ai",
+    codeName: "OPERATION // ECLIPSE",
+    title: "Darkpattern-AI — Deceptive UI Detection System",
+    category: "AI/ML & Full-Stack System • Academic Research",
+    year: "2026",
+    status: "Verified Open Source",
     description:
-      "Designed and built an automated WhatsApp chatbot using the WhatsApp Business API and Python, replacing manual message handling with automated responses.",
+      "A production-quality detection platform for identifying, classifying, and localizing deceptive user-interface patterns (dark patterns) on websites using multimodal vision and DOM analysis.",
     longDescription:
-      "A personal automation system leveraging the WhatsApp Business API and Python. Integrated REST APIs to route incoming messages and trigger automated responses, significantly reducing turnaround times for repetitive inquiries while adding features incrementally.",
+      "Engineered an automated research-grade system that uncovers manipulative commercial patterns such as disguised ads, confirmshaming, forced continuity, and hidden recurring fees. Features a headless web crawler, a DOM and computed style extractor, machine learning classification pipelines, and a browser extension frontend for real-time client verification.",
     features: [
-      "Designed and built an automated WhatsApp chatbot using the WhatsApp Business API and Python",
-      "Replaced manual message handling with intelligent automated responses",
-      "Integrated REST APIs to route incoming messages and trigger real-time responses",
-      "Reduced response time for repetitive queries through efficient payload routing",
-      "Built and improved the bot incrementally, adding features in small iterations",
+      "Engineered multimodal analysis pipeline combining screenshot computer vision and DOM tree traversal",
+      "Built full-stack crawler, backend classification service, and browser extension interface",
+      "Implemented stateful tracking across multi-step checkout and cart funnels to detect disguised fees",
+      "Containerized system with Docker Compose for benchmark replication and academic evaluation",
+      "Extensible classification architecture ready for browser extension and auditing pipelines",
     ],
-    technologies: ["WhatsApp Business API", "Python", "REST APIs", "Automation", "JSON"],
-    githubUrl: "https://github.com/SantoshMahat9",
-    image: "/images/projects/whatsapp-bot.svg",
+    technologies: ["TypeScript", "Python", "FastAPI", "Docker", "DOM Traversal", "Machine Learning", "Browser Extension"],
+    githubUrl: "https://github.com/SantoshMahat9/Darkpattern",
+    repoStatus: "Public GitHub Repository",
+    demoStatus: "Local Prototype / Research Bench",
+    image: "/images/projects/web-lab.svg",
     accentColor: "#E50914",
   },
   {
     id: "expense-tracker",
     codeName: "OPERATION // LEDGER",
-    title: "Personal Expense Tracker",
-    category: "Internship Project • Full Stack Financial App",
+    title: "Personal Expense Tracker — Financial Intelligence",
+    category: "Enterprise Internship Project • Full Stack Finance",
     year: "2024",
+    status: "Mission Accomplished",
     description:
-      "Built a web application to log, categorize, and track daily income and expenses with .NET backend logic and relational SQL data storage.",
+      "Engineered an enterprise financial tracking web application during an onsite internship at Kantascrypt, developing relational SQL schemas and backend .NET business logic.",
     longDescription:
-      "Developed during the internship at Kantascrypt. Built to log, categorize, and track daily income and expenses. Implemented backend logic and robust data storage using .NET and SQL, validated through team code reviews and iterative sprint check-ins.",
+      "Collaborated onsite in an agile developer team at Kantascrypt to deliver a personal financial management platform. Designed normalized relational database schemas in SQL, wrote defensive .NET backend service controllers to compute transaction ledgers, and participated in sprint code reviews to ship working software in short, disciplined iterations.",
     features: [
-      "Built a web application to log, categorize, and track daily income and expenses",
-      "Implemented backend logic and data storage using .NET and SQL",
-      "Designed and managed the SQL database for personal finance data",
-      "Took part in debugging and peer code reviews to improve performance and code quality",
-      "Iterative agile delivery with regular progress check-ins",
+      "Designed and normalized relational SQL database tables ensuring ACID compliance for transactions",
+      "Developed backend controllers and transaction processing logic in .NET and C#",
+      "Created structured category classification for daily income and expenditure tracking",
+      "Participated in agile ceremonies: daily stand-ups, backlog grooming, and team code reviews",
+      "Performed defensive input sanitization and unit-level validation on financial figures",
     ],
-    technologies: [".NET", "SQL", "HTML", "CSS", "C#"],
-    githubUrl: "https://github.com/SantoshMahat9",
+    technologies: [".NET", "SQL", "C#", "HTML5", "CSS3", "Agile Sprints", "Code Reviews"],
+    githubUrl: undefined, // Internal enterprise repository at Kantascrypt (proprietary)
+    repoStatus: "Kantascrypt Internal Dossier",
+    demoStatus: "Internal Enterprise Deployment",
     image: "/images/projects/expense-tracker.svg",
     accentColor: "#E50914",
   },
   {
-    id: "web-dev-projects",
-    codeName: "OPERATION // LAB",
-    title: "Web Development Projects (In Progress)",
-    category: "Full Stack Development • Active Work",
-    year: "2024 – Present",
-    status: "In Progress",
+    id: "whatsapp-chatbot",
+    codeName: "OPERATION // DISPATCH",
+    title: "WhatsApp Automated Chatbot Engine",
+    category: "Automation & API Engineering • Personal Project",
+    year: "2025",
+    status: "Deployed Engine",
     description:
-      "Building mini full-stack projects using MongoDB and Node.js delivered in small, working increments while practising RESTful API design.",
+      "Engineered an automated customer interaction and webhook routing pipeline using the WhatsApp Business Cloud API and Python, replacing manual message handling with real-time automated workflows.",
     longDescription:
-      "Continuous hands-on full-stack development initiatives exploring scalable web patterns. Focuses on asynchronous Node.js backends, MongoDB document persistence, RESTful API endpoint integration, and incremental feature delivery.",
+      "Architected a serverless webhook receiver and message router in Python. Integrated official Meta WhatsApp Business API endpoints, parsed structured incoming JSON payloads, and automated dynamic response routing, dramatically slashing response times for repetitive queries.",
     features: [
-      "Building mini full-stack projects using MongoDB and Node.js",
-      "Delivered in small, working increments following agile principles",
-      "Practising RESTful API design, modular routing, and clean integration",
-      "Responsive frontend client interfaces using HTML, CSS, and modern JavaScript",
-      "Component-level testing, Git version control, and continuous refinement",
+      "Integrated official WhatsApp Business Cloud API with cryptographically verified webhooks",
+      "Engineered Python message dispatcher with structured intent parsing and automated responses",
+      "Automated FAQ resolution and payload routing, eliminating manual handling latency",
+      "Designed resilient error handling and retry mechanisms for webhook connection drops",
+      "Iterative deployment with continuous logging and payload verification",
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "MongoDB", "Node.js", "REST APIs"],
-    githubUrl: "https://github.com/SantoshMahat9",
+    technologies: ["WhatsApp Business API", "Python", "REST APIs", "Webhooks", "JSON", "Automation"],
+    githubUrl: undefined, // Private integration repository with live API credentials
+    repoStatus: "Private Integration Pipeline",
+    demoStatus: "API Cloud Webhook Active",
+    image: "/images/projects/whatsapp-bot.svg",
+    accentColor: "#E50914",
+  },
+  {
+    id: "smartparking",
+    codeName: "OPERATION // MATRIX",
+    title: "Smart Parking Allocation & Reservation System",
+    category: "IoT & Full Stack Engineering • Verified Public Repo",
+    year: "2024",
+    status: "Verified Open Source",
+    description:
+      "Automated parking space detection and slot reservation platform managing vehicle allocation, real-time availability tracking, and automated entry/exit logging.",
+    longDescription:
+      "Developed a web-based smart parking management system providing vehicle owners with real-time parking slot discovery and reservation capabilities while offering operators an intuitive dashboard to monitor occupancy, entry/exit logs, and parking turnover.",
+    features: [
+      "Engineered real-time slot state management tracking available, occupied, and reserved bays",
+      "Built automated vehicle entry and departure timestamp logging",
+      "Designed responsive UI for quick bay discovery and reservation confirmation",
+      "Clean modular codebase for easy integration with hardware IoT sensor arrays",
+    ],
+    technologies: ["JavaScript", "HTML5", "CSS3", "SQL", "IoT Logic"],
+    githubUrl: "https://github.com/SantoshMahat9/smartparking",
+    repoStatus: "Public GitHub Repository",
+    demoStatus: "Open Source Repository",
     image: "/images/projects/web-lab.svg",
     accentColor: "#E50914",
   },

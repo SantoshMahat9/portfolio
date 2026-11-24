@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { heistAudio } from "@/lib/audioEngine";
@@ -8,6 +8,15 @@ import { heistAudio } from "@/lib/audioEngine";
 export function HeroPortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   // Smooth mouse-responsive 3D tilt
   const mouseX = useMotionValue(0);
@@ -24,7 +33,7 @@ export function HeroPortrait() {
   const lightY = useTransform(smoothY, [-0.5, 0.5], [15, 85]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
+    if (prefersReducedMotion || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -58,8 +67,8 @@ export function HeroPortrait() {
       {/* 3D Tilted Card Container */}
       <motion.div
         style={{
-          rotateX,
-          rotateY,
+          rotateX: prefersReducedMotion ? 0 : rotateX,
+          rotateY: prefersReducedMotion ? 0 : rotateY,
           transformStyle: "preserve-3d",
         }}
         initial={{ opacity: 0, scale: 0.92, y: 30 }}
@@ -68,16 +77,18 @@ export function HeroPortrait() {
         className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(229,9,20,0.35)] border border-heist-red/40 hover:border-heist-red transition-all duration-500 bg-[#09090c] group cursor-pointer"
       >
         {/* Dynamic Specular Crimson Glare tracking cursor */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none opacity-40 group-hover:opacity-70 mix-blend-screen transition-opacity duration-300 z-20"
-          style={{
-            background: useTransform(
-              [lightX, lightY],
-              ([lx, ly]) =>
-                `radial-gradient(circle at ${lx}% ${ly}%, rgba(255, 255, 255, 0.35) 0%, rgba(229, 9, 20, 0.3) 30%, transparent 65%)`
-            ),
-          }}
-        />
+        {!prefersReducedMotion && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none opacity-40 group-hover:opacity-70 mix-blend-screen transition-opacity duration-300 z-20"
+            style={{
+              background: useTransform(
+                [lightX, lightY],
+                ([lx, ly]) =>
+                  `radial-gradient(circle at ${lx}% ${ly}%, rgba(255, 255, 255, 0.35) 0%, rgba(229, 9, 20, 0.3) 30%, transparent 65%)`
+              ),
+            }}
+          />
+        )}
 
         {/* Ambient Top Crimson Laser Seam */}
         <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-heist-red to-transparent z-30" />

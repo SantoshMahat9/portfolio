@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
-export function FloatingObjects() {
+interface FloatingObjectsProps {
+  isMobile?: boolean;
+}
+
+export function FloatingObjects({ isMobile = false }: FloatingObjectsProps) {
   const torusRef1 = useRef<THREE.Mesh>(null);
   const torusRef2 = useRef<THREE.Mesh>(null);
   const icosaRef = useRef<THREE.Mesh>(null);
@@ -13,57 +17,86 @@ export function FloatingObjects() {
   const groupRef = useRef<THREE.Group>(null);
   const shardsRef = useRef<THREE.InstancedMesh>(null);
 
-  // Generate 24 floating bullion / encrypted data shards in perimeter
-  const shardCount = 24;
+  // Dynamic shard count: 8 on mobile to protect GPU, 22 on desktop
+  const shardCount = isMobile ? 8 : 22;
+
   const shardData = useMemo(() => {
     const temp = [];
     for (let i = 0; i < shardCount; i++) {
-      // Keep perimeter positions (x < -4.5 or x > 4.5) to never overlap central hero content
+      // Perimeter positions so shards never collide with central hero typography
       const side = i % 2 === 0 ? 1 : -1;
       const x = side * (4.8 + Math.random() * 2.5);
       const y = (Math.random() - 0.5) * 6;
       const z = (Math.random() - 0.5) * 3 - 1;
-      const rotSpeed = (Math.random() + 0.2) * 0.8;
+      const rotSpeed = (Math.random() + 0.2) * 0.7;
       temp.push({ x, y, z, rotSpeed });
     }
     return temp;
+  }, [shardCount]);
+
+  // Clean disposal of three.js resources on unmount
+  useEffect(() => {
+    return () => {
+      // Clean up meshes and instanced mesh matrices
+      [torusRef1, torusRef2, icosaRef, octaRef].forEach((ref) => {
+        if (ref.current) {
+          ref.current.geometry?.dispose();
+          if (Array.isArray(ref.current.material)) {
+            ref.current.material.forEach((m) => m.dispose());
+          } else {
+            ref.current.material?.dispose();
+          }
+        }
+      });
+      if (shardsRef.current) {
+        shardsRef.current.geometry?.dispose();
+        if (Array.isArray(shardsRef.current.material)) {
+          shardsRef.current.material.forEach((m) => m.dispose());
+        } else {
+          shardsRef.current.material?.dispose();
+        }
+      }
+    };
   }, []);
 
   useFrame((state, delta) => {
-    // Subtle mouse parallax on the whole floating group
+    // Clamp delta to prevent erratic jumps on frame drops
+    const clampedDelta = Math.min(delta, 0.05);
+
+    // Subtle pointer parallax on group
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.damp(
         groupRef.current.rotation.y,
-        state.pointer.x * 0.2,
+        state.pointer.x * (isMobile ? 0.08 : 0.18),
         2.0,
-        delta
+        clampedDelta
       );
       groupRef.current.rotation.x = THREE.MathUtils.damp(
         groupRef.current.rotation.x,
-        -state.pointer.y * 0.15,
+        -state.pointer.y * (isMobile ? 0.06 : 0.12),
         2.0,
-        delta
+        clampedDelta
       );
     }
 
     if (torusRef1.current) {
-      torusRef1.current.rotation.x += delta * 0.35;
-      torusRef1.current.rotation.y += delta * 0.45;
+      torusRef1.current.rotation.x += clampedDelta * 0.35;
+      torusRef1.current.rotation.y += clampedDelta * 0.45;
     }
     if (torusRef2.current) {
-      torusRef2.current.rotation.z += delta * 0.25;
-      torusRef2.current.rotation.x -= delta * 0.35;
+      torusRef2.current.rotation.z += clampedDelta * 0.25;
+      torusRef2.current.rotation.x -= clampedDelta * 0.35;
     }
     if (icosaRef.current) {
-      icosaRef.current.rotation.y += delta * 0.4;
-      icosaRef.current.rotation.z += delta * 0.25;
+      icosaRef.current.rotation.y += clampedDelta * 0.4;
+      icosaRef.current.rotation.z += clampedDelta * 0.25;
     }
     if (octaRef.current) {
-      octaRef.current.rotation.x += delta * 0.45;
-      octaRef.current.rotation.y -= delta * 0.3;
+      octaRef.current.rotation.x += clampedDelta * 0.45;
+      octaRef.current.rotation.y -= clampedDelta * 0.3;
     }
 
-    // Animate shards
+    // Animate bullion shards
     if (shardsRef.current) {
       const dummy = new THREE.Object3D();
       const time = state.clock.getElapsedTime();
@@ -89,9 +122,9 @@ export function FloatingObjects() {
   return (
     <group ref={groupRef}>
       {/* Floating Dark Steel Ring with Crimson Emissive Rim - Top Left */}
-      <Float speed={2} rotationIntensity={0.8} floatIntensity={1}>
+      <Float speed={1.8} rotationIntensity={0.7} floatIntensity={0.9}>
         <mesh ref={torusRef1} position={[-6.2, 2.8, -1.5]} scale={0.65}>
-          <torusGeometry args={[1.2, 0.2, 24, 48]} />
+          <torusGeometry args={[1.2, 0.2, 20, 36]} />
           <meshStandardMaterial
             color="#141414"
             metalness={0.9}
@@ -103,7 +136,7 @@ export function FloatingObjects() {
       </Float>
 
       {/* Floating Crimson Core Vault Polyhedron - Top Right */}
-      <Float speed={2.2} rotationIntensity={1} floatIntensity={1.2}>
+      <Float speed={2.0} rotationIntensity={0.9} floatIntensity={1.0}>
         <mesh ref={icosaRef} position={[6.4, 2.5, -2]} scale={0.7}>
           <icosahedronGeometry args={[1, 0]} />
           <meshStandardMaterial
@@ -117,7 +150,7 @@ export function FloatingObjects() {
       </Float>
 
       {/* Floating Tactical Octahedron - Far bottom-left */}
-      <Float speed={1.8} rotationIntensity={0.8} floatIntensity={1}>
+      <Float speed={1.6} rotationIntensity={0.7} floatIntensity={0.8}>
         <mesh ref={octaRef} position={[-6.0, -2.6, -1]} scale={0.55}>
           <octahedronGeometry args={[1, 0]} />
           <meshStandardMaterial
@@ -131,9 +164,9 @@ export function FloatingObjects() {
       </Float>
 
       {/* Futuristic Security Laser Ring - Far bottom-right */}
-      <Float speed={2} rotationIntensity={0.9} floatIntensity={1.1}>
+      <Float speed={1.8} rotationIntensity={0.8} floatIntensity={0.9}>
         <mesh ref={torusRef2} position={[6.2, -2.8, -1.5]} scale={0.55}>
-          <torusGeometry args={[1.3, 0.12, 24, 48]} />
+          <torusGeometry args={[1.3, 0.12, 20, 36]} />
           <meshStandardMaterial
             color="#E50914"
             metalness={0.98}
@@ -156,13 +189,13 @@ export function FloatingObjects() {
         />
       </instancedMesh>
 
-      {/* Subtle Background Red Target Rings in deep z space */}
+      {/* Subtle Background Target Rings in deep z space */}
       <mesh position={[0, 0, -5]} rotation={[-Math.PI / 3.5, 0, 0]}>
-        <ringGeometry args={[7.2, 7.24, 80]} />
+        <ringGeometry args={[7.2, 7.24, 64]} />
         <meshBasicMaterial color="#E50914" opacity={0.2} transparent />
       </mesh>
       <mesh position={[0, 0, -5.1]} rotation={[-Math.PI / 3.5, 0, 0]}>
-        <ringGeometry args={[8.4, 8.44, 80]} />
+        <ringGeometry args={[8.4, 8.44, 64]} />
         <meshBasicMaterial color="#720D12" opacity={0.12} transparent />
       </mesh>
     </group>
