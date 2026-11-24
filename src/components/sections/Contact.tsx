@@ -6,6 +6,7 @@ import confetti from "canvas-confetti";
 import { profileData } from "@/data/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { heistAudio } from "@/lib/audioEngine";
 import {
   Mail,
   Linkedin,
@@ -76,12 +77,38 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      heistAudio.playClick();
+      return;
+    }
 
     setIsSubmitting(true);
+    heistAudio.playClick();
 
-    // Realistic transmission simulation
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    // Send real transmission via FormSubmit to santoshkumarmahato284@gmail.com
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/santoshkumarmahato284@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _subject: `[HEIST TRANSMISSION] ${formData.subject} - from ${formData.name}`,
+          subject: formData.subject,
+          message: formData.message,
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) {
+        console.warn("FormSubmit relay status:", response.status);
+      }
+    } catch (err) {
+      console.warn("Contact form relay network exception:", err);
+    }
 
     try {
       confetti({
@@ -90,6 +117,7 @@ export function ContactSection() {
         origin: { y: 0.6 },
         colors: ["#E50914", "#720D12", "#FFFFFF"],
       });
+      heistAudio.playAccessGranted();
     } catch {
       // safe fallback
     }
