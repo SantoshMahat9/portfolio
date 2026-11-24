@@ -41,14 +41,21 @@ export interface SkillCategory {
 }
 
 export interface Education {
+  id?: string;
   degree: string;
+  field?: string;
   institution: string;
-  university: string;
+  university?: string;
+  board?: string;
   duration: string;
-  cgpa: string;
+  status: string;
+  cgpa?: string;
   location: string;
   highlights?: string[];
+  isCurrent?: boolean;
 }
+
+export type EducationItem = Education;
 
 export interface Certification {
   id: string;

@@ -11,9 +11,9 @@ export function SkillsSection() {
 
   const categoryIcons: Record<string, React.ReactNode> = {
     "Frontend Architecture": <Layers className="w-4 h-4 text-heist-red" />,
-    "Backend Engineering": <Terminal className="w-4 h-4 text-heist-red" />,
-    "Database Systems": <Database className="w-4 h-4 text-heist-red" />,
-    "Development Tools & Environment": <Wrench className="w-4 h-4 text-heist-red" />,
+    "Backend & Cloud Systems": <Terminal className="w-4 h-4 text-heist-red" />,
+    "Programming & AI/ML": <Database className="w-4 h-4 text-heist-red" />,
+    "Tools & Methodologies": <Wrench className="w-4 h-4 text-heist-red" />,
   };
 
   const categoriesList = ["ALL", ...skillCategories.map((c) => c.category)];

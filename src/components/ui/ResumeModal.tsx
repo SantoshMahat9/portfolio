@@ -216,19 +216,36 @@ ADDITIONAL INFORMATION
                   <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black border-b border-black pb-0.5 mb-2">
                     EXPERIENCE
                   </h2>
-                  <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
-                    <span>Intern Developer | Kantascrypt (Onsite)</span>
-                    <span className="font-normal text-neutral-700">Mar – Apr 2024</span>
+                  <div className="mb-3">
+                    <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
+                      <span>Freelance Web Developer | Self-Employed</span>
+                      <span className="font-normal text-neutral-700">2024 – Present</span>
+                    </div>
+                    <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-1 mt-1">
+                      <li>Designed and developed responsive web applications for clients using React, Node.js, and MongoDB.</li>
+                      <li>Implemented authentication and real-time data storage using Firebase and RESTful APIs.</li>
+                      <li>Managed full lifecycle: requirements gathering, UI wireframing, testing, and deployment.</li>
+                    </ul>
+                    <p className="text-xs text-neutral-700 pl-5 mt-1 font-medium">
+                      <strong className="text-black">Tech:</strong> React, Node.js, MongoDB, Firebase, Express.js
+                    </p>
                   </div>
-                  <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-1 mt-1">
-                    <li>Collaborated in a team of interns to build a Personal Expense Tracker web application, working in short iterations with shared tasks and regular progress check-ins.</li>
-                    <li>Designed and managed the SQL database for personal finance data.</li>
-                    <li>Developed backend logic in .NET to process user data.</li>
-                    <li>Took part in debugging and peer code reviews to improve application performance and code quality.</li>
-                  </ul>
-                  <p className="text-xs text-neutral-700 pl-5 mt-1 font-medium">
-                    <strong className="text-black">Tech:</strong> .NET, SQL
-                  </p>
+
+                  <div>
+                    <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
+                      <span>Intern Developer | Kantascrypt (Onsite)</span>
+                      <span className="font-normal text-neutral-700">Dec 2024 – Jan 2025</span>
+                    </div>
+                    <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-1 mt-1">
+                      <li>Collaborated in an agile team of developers to build a Personal Expense Tracker web application.</li>
+                      <li>Designed and managed the SQL Server database for personal finance data.</li>
+                      <li>Developed backend logic in .NET (C#) to process user data and transaction summaries.</li>
+                      <li>Took part in daily standups and peer code reviews to improve performance and maintain code quality.</li>
+                    </ul>
+                    <p className="text-xs text-neutral-700 pl-5 mt-1 font-medium">
+                      <strong className="text-black">Tech:</strong> .NET, SQL Server, C#, Agile Sprints
+                    </p>
+                  </div>
                 </div>
 
                 {/* Projects */}
@@ -299,13 +316,25 @@ ADDITIONAL INFORMATION
                   <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black border-b border-black pb-0.5 mb-2">
                     EDUCATION
                   </h2>
-                  <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
-                    <span>B.Tech, Computer Engineering | St. John College of Engineering and Management, Palghar</span>
-                    <span className="font-normal text-neutral-700">2023 – 2027</span>
+                  <div className="mb-2.5">
+                    <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
+                      <span>B.Tech / B.E., Computer Engineering | St. John College of Engineering and Management, Palghar</span>
+                      <span className="font-normal text-neutral-700">2023 – 2027</span>
+                    </div>
+                    <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-0.5 mt-0.5">
+                      <li>University of Mumbai | Current CGPA: 6.5</li>
+                    </ul>
                   </div>
-                  <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-1 mt-1">
-                    <li>University of Mumbai | Current CGPA: 6.5</li>
-                  </ul>
+
+                  <div>
+                    <div className="flex justify-between items-baseline font-bold text-xs sm:text-sm text-black">
+                      <span>HSC — Science (Informatics Practices) | SDSM College, Palghar</span>
+                      <span className="font-normal text-neutral-700">2021 – 2023</span>
+                    </div>
+                    <ul className="list-disc pl-5 text-xs sm:text-sm text-neutral-800 space-y-0.5 mt-0.5">
+                      <li>Maharashtra State Board (MSBSHSE) | Foundations in Python, Mathematics & Science</li>
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Additional Information */}

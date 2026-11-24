@@ -103,6 +103,26 @@ export function About() {
                 </p>
               </div>
 
+              {/* Tactical Quick Facts Strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 border-t border-white/10 font-mono-code text-center">
+                <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                  <span className="block font-bebas text-2xl text-white tracking-wide">2+</span>
+                  <span className="text-[9px] uppercase tracking-wider text-neutral-400">Years Coding</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                  <span className="block font-bebas text-2xl text-heist-red tracking-wide">6+</span>
+                  <span className="text-[9px] uppercase tracking-wider text-neutral-400">Projects Shipped</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                  <span className="block font-bebas text-2xl text-emerald-400 tracking-wide">1</span>
+                  <span className="text-[9px] uppercase tracking-wider text-neutral-400">Enterprise Role</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-black/50 border border-white/5">
+                  <span className="block font-bebas text-2xl text-white tracking-wide">2027</span>
+                  <span className="text-[9px] uppercase tracking-wider text-neutral-400">B.Tech Degree</span>
+                </div>
+              </div>
+
               <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-white/5 text-xs font-technical">
                 <div className="flex items-center gap-2 text-heist-muted">
                   <MapPin className="w-4 h-4 text-heist-red" />

@@ -13,12 +13,18 @@ TECHNICAL SKILLS
 • Methodologies: Basic understanding of Agile and Scrum (sprints, daily stand-ups, backlog, sprint review), iterative development, team collaboration
 
 EXPERIENCE
-Intern Developer | Kantascrypt (Onsite) | Mar – Apr 2024
+Freelance Web Developer | Self-Employed | 2024 – Present
+• Designed and developed responsive full-stack web applications for clients using React, Node.js, and MongoDB.
+• Implemented authentication, real-time database synchronization, and cloud hosting using Firebase and REST APIs.
+• Managed end-to-end project lifecycle from UI wireframing to client deployment.
+Tech: React, Node.js, MongoDB, Firebase, Express.js
+
+Intern Developer | Kantascrypt (Onsite) | Dec 2024 – Jan 2025
 • Collaborated in a team of interns to build a Personal Expense Tracker web application, working in short iterations with shared tasks and regular progress check-ins.
-• Designed and managed the SQL database for personal finance data.
-• Developed backend logic in .NET to process user data.
+• Designed and managed the SQL Server database for personal finance data.
+• Developed backend logic in .NET (C#) to process user data.
 • Took part in debugging and peer code reviews to improve application performance and code quality.
-Tech: .NET, SQL
+Tech: .NET, SQL Server, C#
 
 PROJECTS
 API Integration & Automation — WhatsApp Chatbot | Personal Project | 2025
@@ -47,6 +53,10 @@ CERTIFICATIONS
 EDUCATION
 B.Tech, Computer Engineering | St. John College of Engineering and Management, Palghar | 2023 – 2027
 • University of Mumbai | Current CGPA: 6.5
+• Core focus: Full-Stack Systems, Relational Databases, Algorithms & Data Structures
+
+HSC — Science (Informatics Practices) | SDSM College, Palghar | 2021 – 2023
+• Maharashtra State Board (MSBSHSE) | Foundations in Python, Mathematics & Science
 
 ADDITIONAL INFORMATION
 • Strengths: Teamwork, Problem Solving, Eagerness to Learn, Collaborating in Agile-style teams

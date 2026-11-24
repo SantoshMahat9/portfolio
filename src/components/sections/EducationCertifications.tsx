@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { certificationsData } from "@/data/certifications";
-import { educationData } from "@/data/education";
+import { educationHistory } from "@/data/education";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   GraduationCap,
@@ -29,57 +29,79 @@ export function EducationCertifications() {
           subtitle="Verified engineering credentials, institutional clearance from St. John College of Engineering, and validated industry certifications in AI, Databases, and Systems."
         />
 
-        {/* Academic Dossier Feature Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 rounded-3xl bg-[#111116] border border-heist-red/30 p-6 sm:p-8 md:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.7),0_0_20px_rgba(229,9,20,0.1)] relative overflow-hidden"
-        >
-          {/* Top border red laser indicator */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-heist-red to-transparent" />
+        {/* Academic Milestones Dossier Cards */}
+        <div className="space-y-6 mb-14">
+          {educationHistory.map((edu, idx) => {
+            const isCurrent = edu.isCurrent;
+            return (
+              <motion.div
+                key={edu.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                className={`rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 shadow-2xl relative overflow-hidden border ${
+                  isCurrent
+                    ? "bg-[#111116] border-heist-red/40 shadow-[0_15px_40px_rgba(0,0,0,0.7),0_0_20px_rgba(229,9,20,0.1)]"
+                    : "bg-heist-dark border-heist-border hover:border-white/20"
+                }`}
+              >
+                {/* Top border red laser indicator for active engineering degree */}
+                {isCurrent && (
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-heist-red to-transparent" />
+                )}
 
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-heist-red/15 border border-heist-red/40 text-heist-red text-xs font-mono-code font-bold tracking-wider uppercase">
-                <GraduationCap className="w-4 h-4" />
-                <span>PRIMARY ACADEMIC CLEARANCE</span>
-              </div>
-              <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide">
-                {educationData.degree}
-              </h3>
-              <p className="font-sans-body text-neutral-300 text-sm sm:text-base font-medium">
-                {educationData.institution} • {educationData.university}
-              </p>
-            </div>
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
+                  <div className="space-y-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-heist-red/15 border border-heist-red/40 text-heist-red text-xs font-mono-code font-bold tracking-wider uppercase">
+                      <GraduationCap className="w-4 h-4" />
+                      <span>{isCurrent ? "PRIMARY ACADEMIC CLEARANCE" : "PRE-ENGINEERING FOUNDATION"}</span>
+                    </div>
+                    <h3 className="font-bebas text-2xl sm:text-3xl md:text-4xl text-white tracking-wide">
+                      {edu.degree}
+                    </h3>
+                    <p className="font-sans-body text-neutral-300 text-sm sm:text-base font-medium">
+                      {edu.institution} {edu.university ? `• ${edu.university}` : edu.board ? `• ${edu.board}` : ""}
+                    </p>
+                  </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code text-neutral-400">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-                <Calendar className="w-3.5 h-3.5 text-heist-red" />
-                <span>{educationData.duration}</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-                <MapPin className="w-3.5 h-3.5 text-heist-red" />
-                <span>{educationData.location}</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>CGPA: {educationData.cgpa}</span>
-              </div>
-            </div>
-          </div>
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono-code text-neutral-400">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                      <Calendar className="w-3.5 h-3.5 text-heist-red" />
+                      <span>{edu.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                      <MapPin className="w-3.5 h-3.5 text-heist-red" />
+                      <span>{edu.location}</span>
+                    </div>
+                    {edu.cgpa && (
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>CGPA: {edu.cgpa}</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300">
+                      <Award className="w-3.5 h-3.5 text-heist-red" />
+                      <span>{edu.status}</span>
+                    </div>
+                  </div>
+                </div>
 
-          {/* Highlights Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
-            {educationData.highlights?.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-300">
-                <span className="text-heist-red font-bold font-mono-code mt-0.5">›</span>
-                <span className="leading-relaxed">{item}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+                {/* Highlights Grid */}
+                {edu.highlights && edu.highlights.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-6">
+                    {edu.highlights.map((item, hIdx) => (
+                      <div key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-300">
+                        <span className="text-heist-red font-bold font-mono-code mt-0.5">›</span>
+                        <span className="leading-relaxed">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
 
         {/* Certifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
