@@ -29,25 +29,17 @@ export const profileData = {
     cgpa: "6.5",
     location: "Boisar, Maharashtra",
   },
-  location: "Boisar, Maharashtra, India (PIN: 401501)",
-  postalCode: "401501",
+  location: "Boisar, Maharashtra, India",
   phone: "8329224214",
-  status: "Open to Full-Stack Opportunities / Internships",
+  status: "Seeking Full-Stack Internship / Entry-Level Roles",
   email: "santoshkumarmahato284@gmail.com",
   links: {
     github: "https://github.com/SantoshMahat9",
     linkedin: "https://linkedin.com/in/santoshmah",
     instagram: "https://www.instagram.com/_.santoshmahato_/",
     email: "mailto:santoshkumarmahato284@gmail.com",
-    portfolioV1: "https://santoshmahat9.github.io/Personalportfolio/",
     resume: "/resume/Santosh_Mahato_Resume.pdf",
     resumeTxt: "/resume/Santosh_Mahato_Resume.txt",
-  },
-  stats: {
-    yearsCoding: "2+",
-    projectsBuilt: "6+",
-    internships: "Kantascrypt & Acelia",
-    graduationYear: "2027",
   },
   principles: [
     {
