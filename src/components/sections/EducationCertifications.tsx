@@ -93,11 +93,10 @@ export function EducationCertifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className={`p-6 sm:p-7 rounded-2xl border transition-all duration-300 flex flex-col justify-between group shadow-xl ${
-                  isHighlight
-                    ? "bg-gradient-to-br from-[#161214] to-[#0d090a] border-heist-red/40 hover:border-heist-red hover:shadow-[0_0_25px_rgba(229,9,20,0.15)]"
-                    : "bg-[#111116] border-white/10 hover:border-white/20"
-                }`}
+                className={`p-6 sm:p-7 rounded-2xl border transition-all duration-300 flex flex-col justify-between group shadow-xl ${isHighlight
+                  ? "bg-gradient-to-br from-[#161214] to-[#0d090a] border-heist-red/40 hover:border-heist-red hover:shadow-[0_0_25px_rgba(229,9,20,0.15)]"
+                  : "bg-[#111116] border-white/10 hover:border-white/20"
+                  }`}
               >
                 <div className="space-y-4">
                   {/* Category Pill and Verified Badge */}
