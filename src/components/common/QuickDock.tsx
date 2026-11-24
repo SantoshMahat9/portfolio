@@ -21,7 +21,9 @@ export function QuickDock() {
   const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
-    const unsub = heistAudio.subscribe((muted) => setIsMuted(muted));
+    const unsub = heistAudio.subscribe((state) => {
+      setIsMuted(state.isMuted || !state.isPlaying);
+    });
     return () => unsub();
   }, []);
 

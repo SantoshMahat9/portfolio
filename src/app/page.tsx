@@ -7,6 +7,7 @@ import { LaserReticleCursor } from "@/components/ui/LaserReticleCursor";
 import { Navbar } from "@/components/layout/Navbar";
 import { PrecisionHUD } from "@/components/layout/PrecisionHUD";
 import { QuickDock } from "@/components/common/QuickDock";
+import { MusicPlayer } from "@/components/common/MusicPlayer";
 import { HeistMarquee } from "@/components/common/HeistMarquee";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -56,6 +57,9 @@ export default function HomePage() {
 
         {/* Quick Floating Dock for Instant Jumps */}
         <QuickDock />
+
+        {/* Floating Money Heist Music Player & Song Switcher */}
+        <MusicPlayer />
 
         {/* Single-Page Experience Sections */}
         <main className="flex-1 w-full pt-24 sm:pt-28">

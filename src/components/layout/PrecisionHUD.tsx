@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { heistAudio } from "@/lib/audioEngine";
-import { Volume2, VolumeX, Radio, ShieldCheck } from "lucide-react";
+import { heistAudio, AudioTrack } from "@/lib/audioEngine";
+import { Volume2, VolumeX, Radio, ShieldCheck, SkipForward } from "lucide-react";
 
 export function PrecisionHUD() {
   const coordsRef = useRef<HTMLSpanElement>(null);
   const [timeStr, setTimeStr] = useState("");
-  const [isMuted, setIsMuted] = useState(true);
+  const [audioState, setAudioState] = useState(heistAudio.getState());
 
   useEffect(() => {
     // Listen to audio state changes
-    const unsub = heistAudio.subscribe((muted) => setIsMuted(muted));
+    const unsub = heistAudio.subscribe((state) => setAudioState(state));
     return () => unsub();
   }, []);
 
@@ -58,6 +58,14 @@ export function PrecisionHUD() {
   const handleToggleAudio = () => {
     heistAudio.toggleSound();
   };
+
+  const handleNextTrack = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    heistAudio.playClick();
+    heistAudio.nextTrack();
+  };
+
+  const isAudioActive = audioState.isPlaying && !audioState.isMuted;
 
   return (
     <motion.div
@@ -107,33 +115,46 @@ export function PrecisionHUD() {
 
         <span className="text-white/10 hidden sm:inline">|</span>
 
-        {/* Audio Toggle with Animated Equalizer */}
-        <button
-          onClick={handleToggleAudio}
-          title={isMuted ? "Enable Ambient Audio" : "Mute Ambient Audio"}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded border transition-all cursor-pointer ${
-            !isMuted
-              ? "bg-heist-red/15 border-heist-red/50 text-white shadow-[0_0_12px_rgba(229,9,20,0.3)]"
-              : "bg-white/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20"
-          }`}
-        >
-          {!isMuted ? (
-            <>
-              <Volume2 className="w-3 h-3 text-heist-red animate-pulse" />
-              <div className="flex items-end gap-0.5 h-2.5">
-                <span className="w-0.5 h-full bg-heist-red animate-[pulse_0.6s_ease-in-out_infinite]" />
-                <span className="w-0.5 h-2/3 bg-heist-red animate-[pulse_0.8s_ease-in-out_infinite_0.2s]" />
-                <span className="w-0.5 h-4/5 bg-heist-red animate-[pulse_0.7s_ease-in-out_infinite_0.4s]" />
-              </div>
-              <span className="font-bold text-heist-red hidden xs:inline">AUDIO ON</span>
-            </>
-          ) : (
-            <>
-              <VolumeX className="w-3 h-3 text-neutral-500" />
-              <span className="hidden xs:inline">AUDIO MUTED</span>
-            </>
-          )}
-        </button>
+        {/* Audio Toggle with Animated Equalizer and Track Switcher */}
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleToggleAudio}
+            title={!isAudioActive ? "Play Music (Bella Ciao)" : "Pause Music"}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border transition-all cursor-pointer ${
+              isAudioActive
+                ? "bg-heist-red/15 border-heist-red/50 text-white shadow-[0_0_12px_rgba(229,9,20,0.3)]"
+                : "bg-white/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20"
+            }`}
+          >
+            {isAudioActive ? (
+              <>
+                <Volume2 className="w-3 h-3 text-heist-red animate-pulse" />
+                <div className="flex items-end gap-0.5 h-2.5">
+                  <span className="w-0.5 h-full bg-heist-red animate-[pulse_0.6s_ease-in-out_infinite]" />
+                  <span className="w-0.5 h-2/3 bg-heist-red animate-[pulse_0.8s_ease-in-out_infinite_0.2s]" />
+                  <span className="w-0.5 h-4/5 bg-heist-red animate-[pulse_0.7s_ease-in-out_infinite_0.4s]" />
+                </div>
+                <span className="font-bold text-heist-red max-w-[110px] truncate hidden xs:inline">
+                  {audioState.currentTrack.title}
+                </span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-3 h-3 text-neutral-500" />
+                <span className="hidden xs:inline">AUDIO MUTED</span>
+              </>
+            )}
+          </button>
+
+          {/* Quick Skip Song in HUD */}
+          <button
+            onClick={handleNextTrack}
+            title="Change Song (Next Track)"
+            className="p-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+          >
+            <SkipForward className="w-3 h-3 text-heist-red" />
+          </button>
+        </div>
       </div>
     </motion.div>
   );

@@ -1,9 +1,57 @@
-// Procedural Web Audio API sound engine for Money Heist cinematic atmosphere and UI telemetry
-// Zero external asset dependencies: 100% synthesized in real time.
+// Money Heist Audio Engine with multi-track support (Bella Ciao, Heist Remix, Procedural Synth)
+// Coordinates HTML5 audio playback and Web Audio API synthesized sound effects.
+
+export interface AudioTrack {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  src?: string;
+  badge: string;
+}
+
+export const HEIST_TRACKS: AudioTrack[] = [
+  {
+    id: "bella-ciao-remix",
+    title: "Bella Ciao (Heist Remix)",
+    artist: "La Casa De Papel",
+    album: "Money Heist Official Remix",
+    src: "/audio/bella-ciao-remix.mp3",
+    badge: "HEIST ANTHEM",
+  },
+  {
+    id: "bella-ciao-acoustic",
+    title: "Bella Ciao (Acoustic Theme)",
+    artist: "Parler",
+    album: "Italian Resistance Folk",
+    src: "/audio/bella-ciao.mp3",
+    badge: "ORIGINAL FOLK",
+  },
+  {
+    id: "digital-heist-synth",
+    title: "Digital Heist (Tension Drone)",
+    artist: "Santosh Mahato Procedural Synth",
+    album: "Royal Mint Cyber Frequency",
+    badge: "PROCEDURAL 432Hz",
+  },
+];
+
+type AudioStateListener = (state: {
+  isPlaying: boolean;
+  isMuted: boolean;
+  currentTrackIndex: number;
+  currentTrack: AudioTrack;
+  volume: number;
+}) => void;
 
 class HeistAudioEngine {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = true;
+  private isPlaying: boolean = false;
+  private currentTrackIndex: number = 0;
+  private volume: number = 0.55;
+
+  private audioElement: HTMLAudioElement | null = null;
   private droneGain: GainNode | null = null;
   private masterGain: GainNode | null = null;
   private osc1: OscillatorNode | null = null;
@@ -13,15 +61,40 @@ class HeistAudioEngine {
   private lfo: OscillatorNode | null = null;
   private lfoGain: GainNode | null = null;
   private isPlayingDrone: boolean = false;
-  private listeners: Set<(muted: boolean) => void> = new Set();
+
+  private listeners: Set<AudioStateListener> = new Set();
+
+  constructor() {
+    if (typeof window !== "undefined") {
+      this.initAudioElement();
+    }
+  }
+
+  private initAudioElement() {
+    if (!this.audioElement && typeof window !== "undefined") {
+      this.audioElement = new Audio();
+      this.audioElement.preload = "auto";
+      this.audioElement.loop = true;
+      this.audioElement.volume = this.volume;
+
+      this.audioElement.addEventListener("ended", () => {
+        this.nextTrack();
+      });
+
+      this.loadTrack(this.currentTrackIndex);
+    }
+  }
 
   private initContext() {
     if (!this.ctx && typeof window !== "undefined") {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.setValueAtTime(0.7, this.ctx.currentTime);
+        this.masterGain.gain.setValueAtTime(this.volume, this.ctx.currentTime);
         this.masterGain.connect(this.ctx.destination);
       }
     }
@@ -30,86 +103,181 @@ class HeistAudioEngine {
     }
   }
 
-  public subscribe(callback: (muted: boolean) => void): () => void {
+  public subscribe(callback: AudioStateListener): () => void {
     this.listeners.add(callback);
-    callback(this.isMuted);
+    callback(this.getState());
     return () => this.listeners.delete(callback);
   }
 
   private notify() {
-    this.listeners.forEach((cb) => cb(this.isMuted));
+    const state = this.getState();
+    this.listeners.forEach((cb) => cb(state));
+  }
+
+  public getState() {
+    return {
+      isPlaying: this.isPlaying,
+      isMuted: this.isMuted,
+      currentTrackIndex: this.currentTrackIndex,
+      currentTrack: HEIST_TRACKS[this.currentTrackIndex],
+      volume: this.volume,
+    };
   }
 
   public getMuted(): boolean {
     return this.isMuted;
   }
 
+  public getPlaying(): boolean {
+    return this.isPlaying;
+  }
+
+  public getCurrentTrack(): AudioTrack {
+    return HEIST_TRACKS[this.currentTrackIndex];
+  }
+
+  private loadTrack(index: number) {
+    this.currentTrackIndex = (index + HEIST_TRACKS.length) % HEIST_TRACKS.length;
+    const track = HEIST_TRACKS[this.currentTrackIndex];
+
+    if (this.audioElement) {
+      if (track.src) {
+        this.audioElement.src = track.src;
+        this.audioElement.load();
+      } else {
+        this.audioElement.pause();
+        this.audioElement.src = "";
+      }
+    }
+  }
+
   public toggleSound(): boolean {
     this.initContext();
-    this.isMuted = !this.isMuted;
-    if (this.isMuted) {
-      this.stopDrone();
+    this.initAudioElement();
+
+    if (this.isPlaying && !this.isMuted) {
+      this.pause();
+      this.isMuted = true;
     } else {
-      this.startDrone();
+      this.isMuted = false;
+      this.play();
       this.playAccessGranted();
     }
+
     this.notify();
     return this.isMuted;
   }
 
   public startSound(): void {
-    if (this.isMuted) {
-      this.initContext();
+    this.initContext();
+    this.initAudioElement();
+    if (this.isMuted || !this.isPlaying) {
       this.isMuted = false;
-      this.startDrone();
+      this.play();
       this.notify();
     }
   }
 
-  public startDrone() {
-    if (this.isPlayingDrone || this.isMuted) return;
+  public play() {
+    this.initContext();
+    this.initAudioElement();
+    this.isPlaying = true;
+    this.isMuted = false;
+
+    const track = HEIST_TRACKS[this.currentTrackIndex];
+
+    if (track.src && this.audioElement) {
+      this.stopDrone();
+      this.audioElement.volume = this.volume;
+      this.audioElement.play().catch(() => {
+        // Fallback to procedural synth if file audio fails autoplay
+        this.startDrone();
+      });
+    } else {
+      if (this.audioElement) this.audioElement.pause();
+      this.startDrone();
+    }
+
+    this.notify();
+  }
+
+  public pause() {
+    this.isPlaying = false;
+    if (this.audioElement) {
+      this.audioElement.pause();
+    }
+    this.stopDrone();
+    this.notify();
+  }
+
+  public setTrack(index: number) {
+    const wasPlaying = this.isPlaying;
+    this.pause();
+    this.loadTrack(index);
+    if (wasPlaying || !this.isMuted) {
+      this.play();
+    } else {
+      this.notify();
+    }
+  }
+
+  public nextTrack() {
+    this.setTrack(this.currentTrackIndex + 1);
+  }
+
+  public prevTrack() {
+    this.setTrack(this.currentTrackIndex - 1);
+  }
+
+  public setVolume(val: number) {
+    this.volume = Math.max(0, Math.min(1, val));
+    if (this.audioElement) {
+      this.audioElement.volume = this.volume;
+    }
+    if (this.masterGain && this.ctx) {
+      this.masterGain.gain.setValueAtTime(this.volume, this.ctx.currentTime);
+    }
+    this.notify();
+  }
+
+  // Procedural 432Hz Tension Drone (Fallback & Track 3)
+  private startDrone() {
+    if (this.isPlayingDrone) return;
     this.initContext();
     if (!this.ctx || !this.masterGain) return;
 
     try {
       const now = this.ctx.currentTime;
 
-      // Filter for dark cinematic Money Heist mood
       this.filter = this.ctx.createBiquadFilter();
       this.filter.type = "lowpass";
       this.filter.frequency.setValueAtTime(220, now);
       this.filter.Q.setValueAtTime(4.0, now);
 
-      // Low LFO to gently modulate filter cutoff (creates tension pulse)
       this.lfo = this.ctx.createOscillator();
-      this.lfo.frequency.setValueAtTime(0.18, now); // ~5.5s cycle
+      this.lfo.frequency.setValueAtTime(0.18, now);
       this.lfoGain = this.ctx.createGain();
       this.lfoGain.gain.setValueAtTime(90, now);
       this.lfo.connect(this.lfoGain);
       this.lfoGain.connect(this.filter.frequency);
       this.lfo.start();
 
-      // Drone Gain
       this.droneGain = this.ctx.createGain();
       this.droneGain.gain.setValueAtTime(0.001, now);
-      this.droneGain.gain.exponentialRampToValueAtTime(0.28, now + 3);
+      this.droneGain.gain.exponentialRampToValueAtTime(0.25, now + 2);
 
-      // Osc 1: Deep C2 note (65.41 Hz) - cinematic tension
       this.osc1 = this.ctx.createOscillator();
       this.osc1.type = "sawtooth";
-      this.osc1.frequency.setValueAtTime(65.41, now);
+      this.osc1.frequency.setValueAtTime(65.41, now); // C2
 
-      // Osc 2: Detuned C2 note (65.75 Hz) - slow beat frequency
       this.osc2 = this.ctx.createOscillator();
       this.osc2.type = "sawtooth";
       this.osc2.frequency.setValueAtTime(65.75, now);
 
-      // Sub-bass: Deep 32.7 Hz sine (C1)
       this.subOsc = this.ctx.createOscillator();
       this.subOsc.type = "sine";
-      this.subOsc.frequency.setValueAtTime(32.7, now);
+      this.subOsc.frequency.setValueAtTime(32.7, now); // C1
 
-      // Route
       this.osc1.connect(this.filter);
       this.osc2.connect(this.filter);
       this.subOsc.connect(this.filter);
@@ -122,25 +290,23 @@ class HeistAudioEngine {
       this.subOsc.start();
 
       this.isPlayingDrone = true;
-    } catch {
-      // Audio autoplay policy catch
-    }
+    } catch {}
   }
 
-  public stopDrone() {
+  private stopDrone() {
     if (!this.isPlayingDrone) return;
     if (this.ctx && this.droneGain) {
       try {
         const now = this.ctx.currentTime;
         this.droneGain.gain.setValueAtTime(this.droneGain.gain.value, now);
-        this.droneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+        this.droneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
         setTimeout(() => {
           this.osc1?.stop();
           this.osc2?.stop();
           this.subOsc?.stop();
           this.lfo?.stop();
           this.isPlayingDrone = false;
-        }, 900);
+        }, 550);
       } catch {
         this.isPlayingDrone = false;
       }
@@ -209,7 +375,6 @@ class HeistAudioEngine {
     try {
       const now = this.ctx.currentTime;
 
-      // Note 1: 523.25 Hz (C5)
       const osc1 = this.ctx.createOscillator();
       const gain1 = this.ctx.createGain();
       osc1.type = "sine";
@@ -221,7 +386,6 @@ class HeistAudioEngine {
       osc1.start(now);
       osc1.stop(now + 0.18);
 
-      // Note 2: 783.99 Hz (G5)
       const osc2 = this.ctx.createOscillator();
       const gain2 = this.ctx.createGain();
       osc2.type = "sine";
