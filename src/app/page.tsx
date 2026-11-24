@@ -5,7 +5,6 @@ import { TerminalBoot } from "@/components/layout/TerminalBoot";
 import { CurtainSplitTransition } from "@/components/layout/CurtainSplitTransition";
 import { LaserReticleCursor } from "@/components/ui/LaserReticleCursor";
 import { Navbar } from "@/components/layout/Navbar";
-import { PrecisionHUD } from "@/components/layout/PrecisionHUD";
 import { QuickDock } from "@/components/common/QuickDock";
 import { MusicPlayer } from "@/components/common/MusicPlayer";
 import { HeistMarquee } from "@/components/common/HeistMarquee";
@@ -49,11 +48,8 @@ export default function HomePage() {
         <div className="pointer-events-none fixed inset-0 z-30 scanlines-overlay opacity-30" />
         <div className="pointer-events-none fixed inset-0 z-20 film-grain opacity-25" />
 
-        {/* Tactical Navigation Bar */}
+        {/* Unified Tactical Navigation & Telemetry HUD Bar */}
         <Navbar />
-
-        {/* Precision Surveillance Telemetry HUD */}
-        <PrecisionHUD />
 
         {/* Quick Floating Dock for Instant Jumps */}
         <QuickDock />
