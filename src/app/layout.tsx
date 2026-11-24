@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     siteName: `${profileData.brandName} Portfolio`,
     images: [
       {
-        url: "/images/profile/santosh-portrait.png",
-        width: 1200,
-        height: 1200,
-        alt: `${profileData.fullName} — 3D Character Avatar`,
+        url: "/images/profile/santosh-heist-poster.jpg",
+        width: 825,
+        height: 1024,
+        alt: `${profileData.fullName} — Money Heist Developer Profile`,
       },
     ],
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${profileData.brandName} — ${profileData.role}`,
     description: profileData.tagline,
-    images: ["/images/profile/santosh-portrait.png"],
+    images: ["/images/profile/santosh-heist-poster.jpg"],
   },
   robots: {
     index: true,

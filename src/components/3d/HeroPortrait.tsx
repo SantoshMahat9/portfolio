@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ShieldCheck, Crosshair } from "lucide-react";
+import { heistAudio } from "@/lib/audioEngine";
 
 export function HeroPortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,15 +13,15 @@ export function HeroPortrait() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
+  const springConfig = { damping: 25, stiffness: 160, mass: 0.5 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Parallax transforms (subtle, controlled range)
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [6, -6]);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
-  const lightX = useTransform(smoothX, [-0.5, 0.5], [20, 80]);
-  const lightY = useTransform(smoothY, [-0.5, 0.5], [20, 80]);
+  // Parallax tilt angles
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [8, -8]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
+  const lightX = useTransform(smoothX, [-0.5, 0.5], [15, 85]);
+  const lightY = useTransform(smoothY, [-0.5, 0.5], [15, 85]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -30,6 +30,11 @@ export function HeroPortrait() {
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
     mouseY.set(y);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    heistAudio.playBlip();
   };
 
   const handleMouseLeave = () => {
@@ -42,12 +47,13 @@ export function HeroPortrait() {
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative z-20 w-full max-w-[340px] sm:max-w-[380px] md:max-w-[400px] aspect-[4/5] mx-auto select-none perspective-[1000px]"
+      className="relative z-20 w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[450px] aspect-[825/1024] mx-auto select-none perspective-[1200px]"
     >
-      {/* Background Volumetric Red Spotlight Glow behind portrait */}
-      <div className="absolute inset-0 -m-6 rounded-full bg-heist-red/25 blur-3xl pointer-events-none transform -translate-y-4" />
+      {/* Volumetric Red Atmospheric Spotlight behind the poster */}
+      <div className="absolute inset-0 -m-8 rounded-3xl bg-heist-red/25 blur-[90px] pointer-events-none transform -translate-y-2 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-heist-red/40 via-transparent to-heist-red/20 blur-xl pointer-events-none opacity-70" />
 
       {/* 3D Tilted Card Container */}
       <motion.div
@@ -58,73 +64,42 @@ export function HeroPortrait() {
         }}
         initial={{ opacity: 0, scale: 0.92, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-heist-border hover:border-heist-red/60 transition-colors duration-500 bg-gradient-to-b from-heist-surface to-heist-black backdrop-blur-md group"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(229,9,20,0.35)] border border-heist-red/40 hover:border-heist-red transition-all duration-500 bg-[#09090c] group cursor-pointer"
       >
-        {/* Dynamic Specular Crimson Rim Light tracking cursor */}
+        {/* Dynamic Specular Crimson Glare tracking cursor */}
         <motion.div
-          className="absolute inset-0 pointer-events-none opacity-60 mix-blend-screen transition-opacity duration-300"
+          className="absolute inset-0 pointer-events-none opacity-40 group-hover:opacity-70 mix-blend-screen transition-opacity duration-300 z-20"
           style={{
             background: useTransform(
               [lightX, lightY],
               ([lx, ly]) =>
-                `radial-gradient(circle at ${lx}% ${ly}%, rgba(229, 9, 20, 0.45) 0%, rgba(114, 13, 18, 0.25) 45%, transparent 70%)`
+                `radial-gradient(circle at ${lx}% ${ly}%, rgba(255, 255, 255, 0.35) 0%, rgba(229, 9, 20, 0.3) 30%, transparent 65%)`
             ),
           }}
         />
 
-        {/* Ambient Top Crimson Rim Highlight */}
-        <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-heist-red to-transparent z-30" />
+        {/* Ambient Top Crimson Laser Seam */}
+        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-heist-red to-transparent z-30" />
 
-        {/* 3D Character Portrait */}
+        {/* Full Official Operative Poster Artwork */}
         <div className="relative w-full h-full">
           <Image
-            src="/images/profile/santosh-portrait.png"
-            alt="Santosh Mahato — 3D Character Portrait"
+            src="/images/profile/santosh-heist-poster.jpg"
+            alt="Santosh Mahato — Money Heist Developer Profile"
             fill
             priority
-            sizes="(max-width: 640px) 320px, (max-width: 1024px) 380px, 400px"
-            className="object-cover object-top scale-105 group-hover:scale-108 transition-transform duration-700 ease-out"
+            sizes="(max-width: 640px) 340px, (max-width: 1024px) 420px, 450px"
+            className="object-contain sm:object-cover w-full h-full group-hover:scale-[1.02] transition-transform duration-500 ease-out"
           />
-
-          {/* Bottom Gradient Fade for Natural Blend with the Dark Surface */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-heist-black via-heist-black/70 to-transparent z-10" />
-
-          {/* Left dramatic red rim light reflection */}
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-heist-red/35 to-transparent pointer-events-none mix-blend-screen z-10" />
-
-          {/* Right subtle dark red rim light */}
-          <div className="absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-heist-red-dark/30 to-transparent pointer-events-none mix-blend-screen z-10" />
         </div>
 
-        {/* Tactical Crosshair Watermark */}
-        <div className="absolute top-3 right-3 z-20 text-heist-red/60 pointer-events-none">
-          <Crosshair className="w-4 h-4 animate-pulse" />
-        </div>
-
-        {/* Integrated Identity Badge at bottom of card */}
-        <div
-          className="absolute bottom-3 inset-x-3 z-20 flex items-center justify-between p-3 rounded-xl bg-black/80 backdrop-blur-xl border border-heist-border text-xs text-heist-text shadow-lg"
-          style={{ transform: "translateZ(20px)" }}
-        >
-          <div className="flex items-center space-x-2.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-heist-red opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-heist-red" />
-            </span>
-            <div>
-              <p className="font-technical font-bold text-white text-[12px] tracking-wide flex items-center gap-1.5">
-                Santosh Mahato
-                <ShieldCheck className="w-3.5 h-3.5 text-heist-red" />
-              </p>
-              <p className="text-[10px] text-heist-muted font-technical">Full Stack Developer</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded bg-heist-red/20 border border-heist-red/40 text-[10px] text-heist-red font-technical font-bold tracking-wider">
-            <span>OPERATIVE</span>
-          </div>
-        </div>
+        {/* Interactive Holographic Depth Ring on Hover */}
+        <motion.div
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 border-2 border-heist-red/60 rounded-2xl pointer-events-none shadow-[inset_0_0_20px_rgba(229,9,20,0.4)] z-30"
+        />
       </motion.div>
     </div>
   );
